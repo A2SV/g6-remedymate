@@ -9,8 +9,10 @@ export default function AdminLayout({
 	return (
 		<SidebarProvider>
 			<AdminSideBar />
-			<main>
-				<SidebarTrigger />
+			<main className="grow-1">
+				<div className="bg-white">
+					<SidebarTrigger />
+				</div>
 				{children}
 			</main>
 		</SidebarProvider>
