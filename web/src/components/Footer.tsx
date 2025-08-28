@@ -3,7 +3,7 @@ const Footer = () => {
     <div className="flex flex-col md:flex-row flex-wrap p-5 pt-9 px-7 gap-24 md:gap-20 bg-[#0D2A4B] text-white">
       {/* Brand */}
       <div className="ml-0 md:ml-6 md:pr-20 mb-6 md:mb-0 max-w-xs">
-      <div className="flex gap-2"> <button className=" bg-[hsl(212,70%,24%)] w-15 font-bold text-2xl rounded-2xl">RM</button> <h1 className="text-3xl font-bold mb-4 md:mb-0">RemedyMate</h1></div> 
+      <div className="flex gap-2"> <button className=" bg-[hsl(212,70%,24%)] w-17 font-bold text-2xl rounded-2xl">RM</button> <h1 className="text-3xl font-bold mb-4 md:mb-0">RemedyMate</h1></div> 
         <p className="text-sm">
           AI-powered home remedy advisor for safer self-care.
         </p>
@@ -26,7 +26,7 @@ const Footer = () => {
       </div>
 
       {/* Disclaimer */}
-      <div className="max-w-md text-right">
+      <div className="max-w-md">
         <h3 className="mb-2 font-bold">Medical Disclaimer</h3>
         <p className="text-sm text-white/30">
           RemedyMate does not replace professional medical advice, diagnosis, or
