@@ -1,0 +1,101 @@
+// src/lib/mock-data.json
+{
+  "keyMetrics": [
+    {
+      "title": "Usage Counts",
+      "value": "28,760",
+      "change": "+6.2%",
+      "trend": "up",
+      "color": "bg-blue-900",
+      "icon": "📈"
+    },
+    {
+      "title": "Language Usage",
+      "value": "EN 62% • AM 38%",
+      "change": "+2.1% AM",
+      "trend": "up",
+      "color": "bg-emerald-600",
+      "icon": "🌐"
+    },
+    {
+      "title": "Offline Hits",
+      "value": "2,140",
+      "change": "+4.8%",
+      "trend": "up",
+      "color": "bg-orange-500",
+      "icon": "⚡"
+    },
+    {
+      "title": "Red-Flag Escalations",
+      "value": "102",
+      "change": "-1.2%",
+      "trend": "down",
+      "color": "bg-red-500",
+      "icon": "⚠️"
+    }
+  ],
+  "usageOverTimeData": {
+    "labels": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "datasets": [
+      {
+        "label": "Triage",
+        "data": [1200, 1300, 1250, 1400, 1500, 1450, 1600],
+        "borderColor": "var(--color-chart-1)",
+        "backgroundColor": "rgba(var(--color-chart-1-rgb), 0.1)"
+      },
+      {
+        "label": "Map",
+        "data": [900, 950, 920, 1000, 1100, 1050, 1150],
+        "borderColor": "var(--color-chart-2)",
+        "backgroundColor": "rgba(var(--color-chart-2-rgb), 0.1)"
+      },
+      {
+        "label": "Compose",
+        "data": [700, 750, 720, 800, 850, 820, 900],
+        "borderColor": "var(--color-chart-3)",
+        "backgroundColor": "rgba(var(--color-chart-3-rgb), 0.1)"
+      }
+    ]
+  },
+  "languageBreakdownData": {
+    "labels": ["English", "Amharic", "Other"],
+    "values": [62, 38, 0],
+    "colors": ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)"]
+  },
+  "offlineUtilityData": {
+    "labels": ["Offline Usage", "Online Usage"],
+    "values": [25, 75],
+    "colors": ["var(--color-chart-4)", "var(--color-chart-5)"]
+  },
+  "safetyMetricsData": {
+    "labels": ["Low Risk", "Medium Risk", "High Risk"],
+    "values": [65, 25, 10],
+    "colors": ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)"]
+  },
+  "insights": [
+    {
+      "title": "70% of Amharic sessions completed successfully — goal achieved!",
+      "description": "Great progress in accessibility and comprehension for Amharic speakers.",
+      "image": "https://placehold.co/100x60/1e3a5f/ffffff?text=M+ENTL+HEALTH",
+      "icon": "✅"
+    },
+    {
+      "title": "25% sessions served via offline utility is more than expected",
+      "description": "Offline packs are effective in regions with limited connectivity.",
+      "image": "https://placehold.co/100x60/1e3a5f/ffffff?text=📱",
+      "icon": "📱"
+    }
+  ],
+  "mostViewedTopics": [
+    { "topic": "Headache", "sessions": 4320, "duration": "3m 12s", "redFlag": "1.2%" },
+    { "topic": "Diarrhea", "sessions": 3980, "duration": "2m 54s", "redFlag": "0.8%" },
+    { "topic": "Sore Throat", "sessions": 3210, "duration": "2m 40s", "redFlag": "0.6%" },
+    { "topic": "Fever", "sessions": 2880, "duration": "3m 01s", "redFlag": "1.0%" },
+    { "topic": "Back Pain", "sessions": 2420, "duration": "2m 45s", "redFlag": "0.4%" },
+    { "topic": "Skin Rash", "sessions": 2100, "duration": "2m 11s", "redFlag": "0.3%" },
+    { "topic": "Cough", "sessions": 1980, "duration": "2m 38s", "redFlag": "0.5%" },
+    { "topic": "Heartburn", "sessions": 1760, "duration": "2m 07s", "redFlag": "0.2%" },
+    { "topic": "Constipation", "sessions": 1520, "duration": "2m 33s", "redFlag": "0.3%" },
+    { "topic": "Cold & Flu", "sessions": 1320, "duration": "2m 49s", "redFlag": "0.9%" }
+  ]
+}
