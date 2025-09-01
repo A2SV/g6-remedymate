@@ -1,13 +1,9 @@
-import Header from '@/components/Header'
-import LandingPage from '@/components/LandingPage'
-import Footer from '@/components/Footer'
+import LandingPage from "@/components/LandingPage";
 
 export default function Home() {
 	return (
 		<div className="">
-			<Header/>
-			<LandingPage/>
-			<Footer />
+			<LandingPage />
 		</div>
 	);
 }

@@ -1,48 +1,42 @@
 "use client";
 
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+
 type DataRow = {
-  topic: string;
-  sessions: number;
-  duration: string;
-  redFlag: string;
+	topic: string;
+	sessions: number;
+	duration: string;
+	redFlag: string;
 };
 
 type DataTableProps = {
-  data: DataRow[];
+	data: DataRow[];
 };
 
 export default function DataTable({ data }: DataTableProps) {
-  return (
-    <div className="rounded-2xl overflow-hidden border border-border bg-card shadow-sm">
-      <table className="min-w-full text-sm text-left border-collapse">
-        {/* Table Header */}
-        <thead>
-          <tr className="bg-blue-900 text-white">
-            <th className="px-6 py-3 font-medium">Topic</th>
-            <th className="px-6 py-3 font-medium">Sessions</th>
-            <th className="px-6 py-3 font-medium">Avg. Duration</th>
-            <th className="px-6 py-3 font-medium">% Red-Flag</th>
-          </tr>
-        </thead>
-
-        {/* Table Body */}
-        <tbody>
-          {data.map((row, idx) => (
-            <tr
-              key={idx}
-              className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}
-            >
-              <td className="px-6 py-3 font-medium text-foreground">{row.topic}</td>
-              <td className="px-6 py-3">{row.sessions.toLocaleString()}</td>
-              <td className="px-6 py-3">{row.duration}</td>
-              <td className="px-6 py-3">{row.redFlag}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+	return (
+		<div className="bg-white h-fit grow-1 p-2 rounded-sm">
+			<Table>
+				<TableCaption>A list of top topics.</TableCaption>
+				<TableHeader className="bg-primary">
+					<TableRow className="">
+						<TableHead className="text-white">Topic</TableHead>
+						<TableHead className="text-white">Sessions</TableHead>
+						<TableHead className="text-white">Avg. Duration</TableHead>
+						<TableHead className="text-white">% Red-Flag</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{data.map((row, idx) => (
+						<TableRow key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}>
+							<TableCell className="px-6 py-3 font-medium text-foreground">{row.topic}</TableCell>
+							<TableCell className="px-6 py-3">{row.sessions.toLocaleString()}</TableCell>
+							<TableCell className="px-6 py-3">{row.duration}</TableCell>
+							<TableCell className="px-6 py-3">{row.redFlag}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</div>
+	);
 }
-
-
-
