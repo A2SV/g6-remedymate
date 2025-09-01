@@ -7,13 +7,13 @@ function RedFlagEditForm() {
 		<div className="bg-white h-fit w-full p-2 rounded-sm">
 			<form className="flex flex-col gap-6">
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="englishPhrase" className="text-gray-500 text-lg">
+					<Label htmlFor="englishPhrase" className="text-lg">
 						English
 					</Label>
 					<Textarea className="resize-none" id="englishPhrase" />
 				</div>
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="amharicPhrase" className="text-gray-500 text-lg">
+					<Label htmlFor="amharicPhrase" className="text-lg">
 						Amharic
 					</Label>
 					<Textarea lang="am" className="resize-none" id="amharicPhrase" />

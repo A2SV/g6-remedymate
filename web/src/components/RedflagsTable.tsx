@@ -6,11 +6,12 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 function RedflagsTable() {
 	return (
 		<div className="bg-white h-fit grow-1 p-2 rounded-sm">
+			<h3 className="text-lg font-semibold pb-2">Redflags</h3>
 			<Table>
 				<TableCaption>A list of red flags.</TableCaption>
 				<TableHeader className="bg-primary">
 					<TableRow className="">
-						<TableHead className="w-[100px] text-white">Red flag phrase(English)</TableHead>
+						<TableHead className="text-white">Red flag phrase(English)</TableHead>
 						<TableHead className="text-white">Red flag phrase(Amharic)</TableHead>
 						<TableHead className="text-white">Actions</TableHead>
 					</TableRow>
