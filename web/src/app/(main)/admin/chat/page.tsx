@@ -5,21 +5,20 @@ import Image from "next/image";
 
 export default function ChatboxPage() {
   return (
-    <div className="bg-white min-h-screen">
-      <header className="flex justify-between px-6 py-4 shadow-md h-[50px] mx-auto">
+    <div className="flex flex-col min-h-screen bg-white">
+      <header className="flex justify-between px-6 py-4 shadow-md h-[50px]">
         <div className="flex gap-3 items-center">
-          <Image src="/image1.png" alt="chatbox logo 1" width={30} height={30} />
-          <Image src="/image2.png" alt="chatbox logo 2" width={30} height={30} />
+          <Image src="/image2.png" alt="chatbox logo 1" width={30} height={30} />
         </div>
-        <h1 className=" top-3 font-bold text-center flex-1">Symptom Checker</h1>
-        <div className="relative top-3 -translate-y-1/2 w-8 h-8 bg-[#6B7280] rounded-full flex items-center justify-center cursor-pointer">
+        <h1 className="top-3 font-bold text-center flex-1">Symptom Checker</h1>
+        <div className="w-8 h-8 bg-[#6B7280] rounded-full flex items-center justify-center cursor-pointer">
           <h1 className="text-white">i</h1>
         </div>
       </header>
 
-      <div className="flex-1 p-6 overflow-y-auto mx-auto"></div>
+      <div className="flex-1 p-6 overflow-y-auto"></div>
 
-      <footer className="px-6 py-4 border-t mx-auto">
+      <footer className="px-6 py-4 border-t">
         <div className="flex items-center gap-2 relative">
           <Image
             src="/image5.png"
