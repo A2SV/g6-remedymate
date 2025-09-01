@@ -3,10 +3,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NavLink = [
-	{ name: "Home", path: "#hero" },
-	{ name: "About", path: "#about" },
-	{ name: "Features", path: "#features" },
-	{ name: "Testimonials", path: "#testimonials" },
+	{ name: "Home", path: "/#hero" },
+	{ name: "About", path: "/#about" },
+	{ name: "Features", path: "/#features" },
+	{ name: "Testimonials", path: "/#testimonials" },
 	{ name: "Login", path: "/login" },
 ];
 
