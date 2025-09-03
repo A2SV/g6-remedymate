@@ -1,4 +1,4 @@
-import RedFlagEditForm from "@/components/RedFlagEditForm";
+import RedFlagEditForm from "@/components/admin/RedFlagEditForm";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 async function RedflagEditPage({ params }: { params: Promise<{ id: string }> }) {

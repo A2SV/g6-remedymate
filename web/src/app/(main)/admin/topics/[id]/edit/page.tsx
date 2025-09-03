@@ -1,4 +1,4 @@
-import TopicEditorClient from "@/components/TopicEditorClient";
+import TopicEditorClient from "@/components/admin/TopicEditorClient";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
 

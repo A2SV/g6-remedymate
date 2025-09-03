@@ -2,10 +2,10 @@
 
 import { Activity, Clock, CloudOff, SearchIcon, ShieldAlert } from "lucide-react";
 
-import AdminHeader from "@/components/AdminHeader";
-import ChartCard from "@/components/ChartCard";
-import DataTable from "@/components/DataTable";
-import StatCard from "@/components/StatCard";
+import AdminHeader from "@/components/admin/AdminHeader";
+import ChartCard from "@/components/admin/ChartCard";
+import DataTable from "@/components/admin/DataTable";
+import StatCard from "@/components/admin/StatCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
 					<AdminHeader>
 						<div className="flex gap-2">
 							<Input type="text" placeholder="Search topics, content, or flags..." />
-							<Button>
+							<Button className="text-white">
 								<SearchIcon />
 							</Button>
 						</div>

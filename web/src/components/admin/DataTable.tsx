@@ -1,6 +1,6 @@
 "use client";
 
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 type DataRow = {
 	topic: string;

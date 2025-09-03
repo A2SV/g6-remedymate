@@ -1,5 +1,6 @@
 "use client";
 import { ChartArea, LogOut, NotebookPen, ShieldAlert } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
 	Sidebar,
@@ -9,7 +10,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-} from "./ui/sidebar";
+} from "../ui/sidebar";
 
 const items = [
 	{
@@ -33,7 +34,14 @@ function AdminSideBar() {
 	const pathname = usePathname();
 	return (
 		<Sidebar>
-			<SidebarHeader className=" border-b-2 py-4 mb-4 border-white">RemedyMate</SidebarHeader>
+			<SidebarHeader className=" border-b-2 py-4 mb-4 border-white">
+				<div className="flex items-center gap-4">
+					<Link href="/">
+						<p className=" bg-[hsl(212,70%,24%)] p-2 font-bold text-2xl rounded-2xl">RM</p>{" "}
+					</Link>
+					<p className="font-bold text-xl">RemedyMate</p>
+				</div>
+			</SidebarHeader>
 			<SidebarContent>
 				<SidebarMenu className="px-3">
 					{items.map((item) => (

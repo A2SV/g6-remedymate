@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Ethiopic, Poppins } from "next/font/google";
@@ -31,8 +32,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>{children}</body>
+		<html lang="en" suppressHydrationWarning>
+			<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+				<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>{children}</body>
+			</ThemeProvider>
 		</html>
 	);
 }

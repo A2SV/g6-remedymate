@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
+import { Button } from "../ui/button";
+import { Textarea } from "../ui/textarea";
 
 function RedflagTest() {
 	return (
@@ -7,7 +7,7 @@ function RedflagTest() {
 			<form className=" flex flex-col gap-2">
 				<h3 className="text-lg font-semibold">Test reg flag detection</h3>
 				<Textarea className="resize-none" placeholder="Enter a simple phrase" />
-				<Button className="w-full">Run test</Button>
+				<Button className="w-full text-white">Run test</Button>
 			</form>
 		</div>
 	);

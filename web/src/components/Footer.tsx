@@ -3,9 +3,9 @@ import Link from "next/link";
 const Footer = () => {
 	return (
 		<footer className="bg-primary">
-			<div className="container mx-auto flex flex-col md:flex-row flex-wrap py-9 px-7 gap-24 md:gap-20 text-white">
+			<div className="container mx-auto flex flex-col md:flex-row py-9 px-7 gap-12 justify-between text-white">
 				{/* Brand */}
-				<div className="ml-0 md:ml-6 md:pr-20 mb-6 md:mb-0 max-w-xs">
+				<div className="">
 					<div className="flex gap-2 items-center pb-2">
 						{" "}
 						<Link href="/">
@@ -17,7 +17,7 @@ const Footer = () => {
 				</div>
 
 				{/* Product */}
-				<div className="mb-6 md:mb-0">
+				<div className="">
 					<h3 className="mb-2 font-bold">Product</h3>
 					<p>Features</p>
 					<p>About</p>
@@ -25,7 +25,7 @@ const Footer = () => {
 				</div>
 
 				{/* Company */}
-				<div className="mb-6 md:mb-0">
+				<div className="">
 					<h3 className="mb-2 font-bold">Company</h3>
 					<p>Contact</p>
 					<p>Privacy</p>
@@ -33,9 +33,9 @@ const Footer = () => {
 				</div>
 
 				{/* Disclaimer */}
-				<div className="max-w-md">
+				<div className="">
 					<h3 className="mb-2 font-bold">Medical Disclaimer</h3>
-					<p className="text-sm text-white/30">
+					<p className="text-sm text-white/30 break-after-auto">
 						RemedyMate does not replace professional medical advice, diagnosis, or treatment. If you think
 						you may have a medical emergency, call your local emergency number immediately.
 					</p>

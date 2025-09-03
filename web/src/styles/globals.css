@@ -54,19 +54,19 @@
 
 :root {
 	--radius: 0.625rem;
-	--background: #f9fafb;
+	--background: #f2f6fa;
 	--foreground: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.145 0 0);
 	--primary: #0d2a4b;
-	--primary-foreground: oklch(0.985 0 0);
-	--secondary: #1e3a5f;
+	--primary-foreground: #2c3e50;
+	--secondary: #4b85d1;
 	--secondary-foreground: oklch(0.205 0 0);
 	--muted: oklch(0.97 0 0);
 	--muted-foreground: oklch(0.556 0 0);
-	--accent: oklch(0.97 0 0);
+	--accent: #e34c26;
 	--accent-foreground: oklch(0.205 0 0);
 	--destructive: oklch(0.577 0.245 27.325);
 	--border: oklch(0.922 0 0);
@@ -88,19 +88,19 @@
 }
 
 .dark {
-	--background: oklch(0.145 0 0);
+	--background: #1a2531;
 	--foreground: oklch(0.985 0 0);
 	--card: oklch(0.205 0 0);
 	--card-foreground: oklch(0.985 0 0);
 	--popover: oklch(0.205 0 0);
 	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.922 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
+	--primary: #5d9be8;
+	--primary-foreground: #ecf0f1;
+	--secondary: #c1cdd8;
 	--secondary-foreground: oklch(0.985 0 0);
 	--muted: oklch(0.269 0 0);
 	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.269 0 0);
+	--accent: #e74c3c;
 	--accent-foreground: oklch(0.985 0 0);
 	--destructive: oklch(0.704 0.191 22.216);
 	--border: oklch(1 0 0 / 10%);
@@ -142,65 +142,64 @@
 :lang(am) {
 	font-family: var(--font-ethiopic), sans-serif;
 }
-/* src/app/globals.css - Additional styles */
+/* Additional styles */
 @layer components {
-  .stat-card {
-    @apply rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow;
-  }
+	.stat-card {
+		@apply rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow;
+	}
 
-  .chart-card {
-    @apply bg-card rounded-lg border border-border p-4 shadow-sm;
-  }
+	.chart-card {
+		@apply bg-card rounded-lg border border-border p-4 shadow-sm;
+	}
 
-  .data-table {
-    @apply min-w-full divide-y divide-border;
-  }
+	.data-table {
+		@apply min-w-full divide-y divide-border;
+	}
 
-  .data-table th {
-    @apply px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider;
-  }
+	.data-table th {
+		@apply px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider;
+	}
 
-  .data-table td {
-    @apply px-6 py-4 whitespace-nowrap text-sm;
-  }
+	.data-table td {
+		@apply px-6 py-4 whitespace-nowrap text-sm;
+	}
 
-  .data-table tr:nth-child(even) {
-    @apply bg-muted;
-  }
+	.data-table tr:nth-child(even) {
+		@apply bg-muted;
+	}
 
-  .data-table tr:hover {
-    @apply bg-muted/70;
-  }
-}
-/* In globals.css or tailwind config */
-.metric-card {
-  @apply rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow;
-}
+	.data-table tr:hover {
+		@apply bg-muted/70;
+	}
+	.metric-card {
+		@apply rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow;
+	}
 
-.metric-top {
-  @apply flex items-center justify-between;
-}
+	.metric-top {
+		@apply flex items-center justify-between;
+	}
 
-.metric-label {
-  @apply text-xs font-medium text-white/80;
-}
+	.metric-label {
+		@apply text-xs font-medium text-white/80;
+	}
 
-.metric-value {
-  @apply text-2xl font-bold text-white mt-2 mb-1;
-}
+	.metric-value {
+		@apply text-2xl font-bold text-white mt-2 mb-1;
+	}
 
-.metric-trend {
-  @apply flex items-center gap-1 text-sm;
-}
+	.metric-trend {
+		@apply flex items-center gap-1 text-sm;
+	}
 
-.trend-up {
-  @apply text-green-500 dark:text-green-400;
-}
+	.trend-up {
+		@apply text-green-500 dark:text-green-400;
+	}
 
-.trend-down {
-  @apply text-red-500 dark:text-red-400;
-}
+	.trend-down {
+		@apply text-red-500 dark:text-red-400;
+	}
 
-.subcanvas {
-  @apply mt-3 bg-white/10 rounded-lg h-16;
+	.subcanvas {
+		@apply mt-3 bg-white/10 rounded-lg h-16;
+	}
 }

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 function AdminHeader({ children }: { children: ReactNode }) {
 	return (
