@@ -1,4 +1,4 @@
-import AdminHeader from "@/components/AdminHeader";
+import AdminHeader from "@/components/admin/AdminHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -36,7 +36,7 @@ export default function TopicsPage() {
 			<AdminHeader>
 				<div className="flex gap-2">
 					<Input type="text" placeholder="Search topics" />
-					<Button>+ Add new topic</Button>
+					<Button className="text-white">+ Add new topic</Button>
 				</div>
 			</AdminHeader>
 			{/* Grid: main list + right-side mobile preview */}
@@ -91,7 +91,7 @@ export default function TopicsPage() {
 											<Button size="sm" variant="destructive">
 												Delete
 											</Button>
-											<Button size="sm" variant={"default"}>
+											<Button className="text-white" size="sm" variant={"default"}>
 												Test
 											</Button>
 										</TableCell>
@@ -161,8 +161,10 @@ export default function TopicsPage() {
 						))}
 					</div>
 					<div className="flex gap-2 mt-4">
-						<Button>Add Topic</Button>
-						<Button variant="outline">Save Changes</Button>
+						<Button className="text-white">Add Topic</Button>
+						<Button className="text-white" variant="outline">
+							Save Changes
+						</Button>
 					</div>
 				</div>
 			</div>

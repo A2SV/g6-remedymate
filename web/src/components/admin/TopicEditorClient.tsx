@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { KeyboardEvent, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 type Topic = {
 	id: string;

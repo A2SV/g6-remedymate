@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Button } from "../ui/button";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
 function RedflagsTable() {
 	return (

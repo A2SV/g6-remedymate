@@ -70,31 +70,29 @@ const LandingPage = () => {
 
 				{/* Features */}
 				<section id="features" className="w-full py-20 px-6 md:px-17">
-					<h1 className="text-3xl md:text-4xl text-black font-bold">
-						Everything you need for safer self-care
-					</h1>
+					<h1 className="text-3xl md:text-4xl font-bold">Everything you need for safer self-care</h1>
 					<p className="text-gray-500 mt-4 text-sm md:text-[14px]">
 						Designed for clarity, safety, and access across devices and bandwidths
 					</p>
 
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
 						<FeatureCard
-							icon={<Languages className="w-6 h-5 text-black" />}
+							icon={<Languages className="w-6 h-5" />}
 							title="Bilingual Guidance"
 							desc="Switch between English and local languages for clearer understanding."
 						/>
 						<FeatureCard
-							icon={<WifiOff className="w-6 h-5 text-black" />}
+							icon={<WifiOff className="w-6 h-5" />}
 							title="Offline Access"
 							desc="Essential guidance and saved remedies work even without internet."
 						/>
 						<FeatureCard
-							icon={<HeartPlus className="w-6 h-5 text-black" />}
+							icon={<HeartPlus className="w-6 h-5" />}
 							title="Safe Home Remedies"
 							desc="Evidence-informed tips tailored to your context and age."
 						/>
 						<FeatureCard
-							icon={<AlertTriangle className="w-6 h-5 text-black" />}
+							icon={<AlertTriangle className="w-6 h-5" />}
 							title="Red-Flag Alerts"
 							desc="Know when to seek urgent care with clear safety warnings."
 						/>
@@ -160,7 +158,7 @@ const LandingPage = () => {
 				</section>
 
 				{/* Call to Action */}
-				<section className="w-full bg-[#F59E0B] py-12 px-6 flex justify-center">
+				<section className="w-full bg-accent py-12 px-6 flex justify-center">
 					<div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl bg-white rounded-[20px] p-6">
 						<div className="text-center md:text-left mb-6 md:mb-0">
 							<h1 className="font-bold text-[20px] md:text-[23px] text-black/70 mb-2">
@@ -213,7 +211,7 @@ interface TestimonialCardProps {
 }
 
 const TestimonialCard = ({ img, name, role, text }: TestimonialCardProps) => (
-	<div className="p-6 bg-white rounded-[25px]">
+	<div className="p-6 bg-white dark:bg-gray-900 rounded-[25px]">
 		<div className="flex gap-3 mb-3 items-center">
 			<Image src={img} alt={name} width={50} height={50} className="rounded-full" />
 			<div>

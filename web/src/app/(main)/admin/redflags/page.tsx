@@ -1,6 +1,6 @@
-import AdminHeader from "@/components/AdminHeader";
-import RedflagsTable from "@/components/RedflagsTable";
-import RedflagTest from "@/components/RedflagTest";
+import AdminHeader from "@/components/admin/AdminHeader";
+import RedflagsTable from "@/components/admin/RedflagsTable";
+import RedflagTest from "@/components/admin/RedflagTest";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShieldAlert } from "lucide-react";
@@ -11,7 +11,7 @@ function RedFlagsManagement() {
 			<AdminHeader>
 				<div className="flex gap-2">
 					<Input type="text" placeholder="Search red-flag phrases" />
-					<Button>+ Add new phrase</Button>
+					<Button className="text-white">+ Add new phrase</Button>
 				</div>
 			</AdminHeader>
 			<div className="grow-1 px-7 flex gap-4">

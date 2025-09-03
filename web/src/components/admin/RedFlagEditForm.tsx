@@ -1,6 +1,6 @@
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 
 function RedFlagEditForm() {
 	return (
@@ -24,7 +24,9 @@ function RedFlagEditForm() {
 						<Button variant={"destructive"} type="button">
 							Cancel
 						</Button>
-						<Button type="submit">Save Changes</Button>
+						<Button type="submit" className="text-white">
+							Save Changes
+						</Button>
 					</div>
 				</div>
 			</form>

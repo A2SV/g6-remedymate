@@ -1,4 +1,4 @@
-import AdminSideBar from "@/components/AdminSideBar";
+import AdminSideBar from "@/components/admin/AdminSideBar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function AdminLayout({
