@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -33,9 +34,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-				<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>{children}</body>
-			</ThemeProvider>
+			<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>
+				<AuthProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+						{children}
+					</ThemeProvider>
+				</AuthProvider>
+			</body>
 		</html>
 	);
 }
