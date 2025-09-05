@@ -5,7 +5,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 
 function RedflagsTable() {
 	return (
-		<div className="bg-white h-fit grow-1 p-2 rounded-sm">
+		<div className="bg-white p-2 rounded-sm md:col-span-2">
 			<h3 className="text-lg font-semibold pb-2">Redflags</h3>
 			<Table>
 				<TableCaption>A list of red flags.</TableCaption>

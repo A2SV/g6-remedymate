@@ -1,5 +1,5 @@
 "use client";
-import { ChartArea, LogOut, NotebookPen, ShieldAlert } from "lucide-react";
+import { ChartArea, Heart, NotebookPen, ShieldAlert } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -33,38 +33,42 @@ const items = [
 function AdminSideBar() {
 	const pathname = usePathname();
 	return (
-		<Sidebar>
+		<Sidebar collapsible="icon">
 			<SidebarHeader className=" border-b-2 py-4 mb-4 border-white">
 				<div className="flex items-center gap-4">
 					<Link href="/">
-						<p className=" bg-[hsl(212,70%,24%)] p-2 font-bold text-2xl rounded-2xl">RM</p>{" "}
+						<Heart />
 					</Link>
-					<p className="font-bold text-xl">RemedyMate</p>
+					<p className="font-bold text-xl group-data-[collapsible=icon]:hidden">RemedyMate</p>
 				</div>
 			</SidebarHeader>
 			<SidebarContent>
-				<SidebarMenu className="px-3">
+				<SidebarMenu>
 					{items.map((item) => (
-						<SidebarMenuItem key={item.title}>
-							<SidebarMenuButton isActive={pathname.startsWith(item.url)} asChild>
-								<a href={item.url}>
+						<SidebarMenuItem className="px-2" key={item.title}>
+							<SidebarMenuButton
+								className="w-full"
+								size={"lg"}
+								isActive={pathname.startsWith(item.url)}
+								asChild
+							>
+								<Link
+									href={item.url}
+									className="flex items-center group-data-[collapsible=icon]:justify-center"
+								>
 									<item.icon />
-									<span>{item.title}</span>
-								</a>
+									<span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
+								</Link>
 							</SidebarMenuButton>
 						</SidebarMenuItem>
 					))}
-					<SidebarMenuItem>
-						<SidebarMenuButton asChild>
-							<div className="cursor-pointer">
-								<LogOut />
-								<span>Logout</span>
-							</div>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
+					<SidebarMenuItem></SidebarMenuItem>
 				</SidebarMenu>
 			</SidebarContent>
-			<SidebarFooter>Admin</SidebarFooter>
+			<SidebarFooter className="group-data-[collapsible=icon]:hidden">
+				Administrator
+				<p className="text-xs">© {new Date().getFullYear().toString()} RemedyMate. All rights reserved.</p>
+			</SidebarFooter>
 		</Sidebar>
 	);
 }

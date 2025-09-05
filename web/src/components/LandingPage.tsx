@@ -24,7 +24,7 @@ const LandingPage = () => {
 					className="flex flex-col md:flex-row items-center w-full min-h-[500px] text-white bg-[hsl(212,70%,24%)] px-6 md:px-17 py-10 md:gap-20"
 				>
 					{/* Left Side - Text */}
-					<div className="flex-1.2 mt-6 md:mt-14 max-w-2xl">
+					<div className="flex-1.2 mt-6 max-w-2xl">
 						<p>Trusted home health guidance</p>
 						<h1 className="font-bold text-4xl md:text-5xl mb-3 mt-3">
 							Safe, Simple, Accessible Health Guidance.
@@ -37,12 +37,16 @@ const LandingPage = () => {
 							<Button
 								variant="default"
 								size="lg"
-								className="bg-[hsl(160,84%,25%)] flex items-center gap-2 h-13"
+								className="bg-[hsl(160,84%,25%)] flex items-center gap-2 h-13 text-white"
 							>
-								<Smartphone className="w-6 h-6 text-white" /> Get it on Android
+								<Smartphone className="w-6 h-6" /> Get it on Android
 							</Button>
-							<Button variant="secondary" size="lg" className="bg-[#F59E0B] flex items-center gap-2 h-13">
-								<Apple className="w-6 h-6 text-black" /> Download for iOS
+							<Button
+								variant="secondary"
+								size="lg"
+								className="bg-[#F59E0B] flex items-center gap-2 h-13 text-white"
+							>
+								<Apple className="w-6 h-6" /> Download for iOS
 							</Button>
 						</div>
 
@@ -133,8 +137,11 @@ const LandingPage = () => {
 				</section>
 
 				{/* Testimonials */}
-				<section id="testimonials" className="w-full py-12 px-6 md:px-17">
-					<h1 className="text-3xl font-bold mb-6">What people say</h1>
+				<section
+					id="testimonials"
+					className="w-full my-10 py-12 px-6 md:px-17 flex flex-col items-center justify-center"
+				>
+					<h1 className="text-3xl font-bold mb-8 w-full text-center">What people say</h1>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						<TestimonialCard
 							img="/Profile3.png"
@@ -158,25 +165,29 @@ const LandingPage = () => {
 				</section>
 
 				{/* Call to Action */}
-				<section className="w-full bg-accent py-12 px-6 flex justify-center">
-					<div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl bg-white rounded-[20px] p-6">
+				<section className="w-full bg-[#005579] py-12 px-6 flex justify-center">
+					<div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl bg-white dark:bg-blue-300 rounded-[20px] p-6">
 						<div className="text-center md:text-left mb-6 md:mb-0">
-							<h1 className="font-bold text-[20px] md:text-[23px] text-black/70 mb-2">
-								Start safer self-care today
-							</h1>
-							<p className="text-gray-400 text-sm">Free to try. Works offline. Built for Africa.</p>
+							<h1 className="font-bold text-[20px] md:text-[23px] mb-2">Start safer self-care today</h1>
+							<p className="text-gray-400 dark:text-white text-sm">
+								Free to try. Works offline. Built for Africa.
+							</p>
 						</div>
 
 						<div className="flex flex-col sm:flex-row gap-4">
 							<Button
 								variant="default"
 								size="lg"
-								className="bg-[hsl(160,84%,25%)] flex items-center gap-2 h-13"
+								className="bg-[hsl(160,84%,25%)] flex items-center gap-2 h-13 text-white"
 							>
-								<Smartphone className="w-6 h-6 text-white" /> Get it on Android
+								<Smartphone className="w-6 h-6 " /> Get it on Android
 							</Button>
-							<Button variant="secondary" size="lg" className="bg-[#F59E0B] flex items-center gap-2 h-13">
-								<Apple className="w-6 h-6 text-black" /> Download for iOS
+							<Button
+								variant="secondary"
+								size="lg"
+								className="bg-[#F59E0B] flex items-center gap-2 h-13 text-white"
+							>
+								<Apple className="w-6 h-6" /> Download for iOS
 							</Button>
 						</div>
 					</div>

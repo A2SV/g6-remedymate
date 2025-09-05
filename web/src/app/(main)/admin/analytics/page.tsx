@@ -1,13 +1,10 @@
-"use client";
-
-import { Activity, Clock, CloudOff, SearchIcon, ShieldAlert } from "lucide-react";
-
 import AdminHeader from "@/components/admin/AdminHeader";
 import ChartCard from "@/components/admin/ChartCard";
 import DataTable from "@/components/admin/DataTable";
 import StatCard from "@/components/admin/StatCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Activity, Clock, CloudOff, SearchIcon, ShieldAlert } from "lucide-react";
 
 export type StatCardProps = {
 	title: string;
@@ -58,21 +55,18 @@ export default function AnalyticsPage() {
 	];
 
 	return (
-		<div className="flex overflow-hidden min-h-screen">
-			<div className="relative flex font-inter">
-				{/* === ANALYTICS CONTENT === */}
-				<div className="flex w-full flex-col gap-4">
-					{/* Header Controls */}
-					<AdminHeader>
-						<div className="flex gap-2">
-							<Input type="text" placeholder="Search topics, content, or flags..." />
-							<Button className="text-white">
-								<SearchIcon />
-							</Button>
-						</div>
-					</AdminHeader>
-
-					<div className="mb-8 px-7">
+		<div className="">
+			<AdminHeader>
+				<div className="flex gap-2">
+					<Input type="text" placeholder="Search topics, content, or flags..." />
+					<Button className="text-white">
+						<SearchIcon />
+					</Button>
+				</div>
+			</AdminHeader>
+			<div className="min-h-screen flex flex-col">
+				<div className="container mx-auto mb-auto">
+					<div className="my-8 px-7">
 						<h2 className="text-xl font-bold mb-2">Key Metrics Summary</h2>
 
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -114,7 +108,6 @@ export default function AnalyticsPage() {
 						</div>
 					</div>
 
-					{/* Charts & Visualizations */}
 					<div className="mb-8 px-7">
 						<h2 className="text-xl font-bold mb-2">Charts & Visualizations</h2>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -144,11 +137,11 @@ export default function AnalyticsPage() {
 						<h2 className="text-xl font-bold mb-2">Most Viewed Topics</h2>
 						<DataTable data={mostViewedTopics} />
 					</div>
-					<div className="px-7 mb-5">
-						<div className="bg-amber-gold rounded-sm p-4 flex gap-2">
-							<ShieldAlert />
-							<p>Analytics are aggregated and anonymous. No personal health data is stored.</p>
-						</div>
+				</div>
+				<div className="px-7 mb-5">
+					<div className="bg-amber-gold rounded-sm p-4 flex gap-2">
+						<ShieldAlert />
+						<p>Analytics are aggregated and anonymous. No personal health data is stored.</p>
 					</div>
 				</div>
 			</div>
