@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "@/styles/globals.css";
@@ -37,6 +38,7 @@ export default function RootLayout({
 			<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>
 				<AuthProvider>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+						<Toaster richColors position="top-right" />
 						{children}
 					</ThemeProvider>
 				</AuthProvider>

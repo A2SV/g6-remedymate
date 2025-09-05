@@ -45,61 +45,66 @@ export default function TopicsPage() {
 					<div className="lg:col-span-2">
 						<div className="bg-white h-fit grow-1 p-2 rounded-sm">
 							<h3 className="text-lg font-semibold pb-2">Topics</h3>
-							<Table>
-								<TableCaption>A list of topics.</TableCaption>
-								<TableHeader className="bg-primary">
-									<TableRow className="">
-										<TableHead className="text-white">Topic Name</TableHead>
-										<TableHead className="text-white">Language Coverage</TableHead>
-										<TableHead className="text-white">Status</TableHead>
-										<TableHead className="text-white">Last Updated</TableHead>
-										<TableHead className="text-white">Actions</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									{topics.map((topic, idx) => (
-										<TableRow key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}>
-											<TableCell>{topic.name}</TableCell>
-											<TableCell>
-												{topic.languages.map((lang) => (
-													<span
-														key={lang}
-														className="px-2 py-1 bg-blue-100 rounded mr-1 text-xs font-semibold"
-													>
-														{lang}
-													</span>
-												))}
-											</TableCell>
-											<TableCell>
-												<span
-													className={`px-2 py-1 rounded text-xs font-semibold ${
-														topic.status === "Active"
-															? "bg-green-100 text-green-700"
-															: "bg-gray-200 text-gray-700"
-													}`}
-												>
-													{topic.status}
-												</span>
-											</TableCell>
-											<TableCell>{topic.updated}</TableCell>
-											<TableCell className="flex gap-2">
-												<Link
-													className="bg-blue-900 px-2 rounded-sm flex items-center justify-center text-white"
-													href={`/admin/topics/${encodeURIComponent(topic.id)}/edit`}
-												>
-													Edit
-												</Link>
-												<Button size="sm" variant="destructive">
-													Delete
-												</Button>
-												<Button className="text-white" size="sm" variant={"default"}>
-													Test
-												</Button>
-											</TableCell>
+							<div className="shadow-sm bg-white rounded-md overflow-y-auto border-b">
+								<Table>
+									<TableCaption>A list of topics.</TableCaption>
+									<TableHeader className="bg-primary">
+										<TableRow className="">
+											<TableHead className="text-white">Topic Name</TableHead>
+											<TableHead className="text-white">Language Coverage</TableHead>
+											<TableHead className="text-white">Status</TableHead>
+											<TableHead className="text-white">Last Updated</TableHead>
+											<TableHead className="text-white">Actions</TableHead>
 										</TableRow>
-									))}
-								</TableBody>
-							</Table>
+									</TableHeader>
+									<TableBody>
+										{topics.map((topic, idx) => (
+											<TableRow
+												key={idx}
+												className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}
+											>
+												<TableCell>{topic.name}</TableCell>
+												<TableCell>
+													{topic.languages.map((lang) => (
+														<span
+															key={lang}
+															className=" bg-blue-100 rounded mr-1 text-xs font-semibold"
+														>
+															{lang}
+														</span>
+													))}
+												</TableCell>
+												<TableCell>
+													<span
+														className={`px-2 py-1 rounded text-xs font-semibold ${
+															topic.status === "Active"
+																? "bg-green-100 text-green-700"
+																: "bg-gray-200 text-gray-700"
+														}`}
+													>
+														{topic.status}
+													</span>
+												</TableCell>
+												<TableCell>{topic.updated}</TableCell>
+												<TableCell className="flex gap-2">
+													<Link
+														className="bg-blue-900 px-2 rounded-sm flex items-center justify-center text-white"
+														href={`/admin/topics/${encodeURIComponent(topic.id)}/edit`}
+													>
+														Edit
+													</Link>
+													<Button size="sm" variant="destructive">
+														Delete
+													</Button>
+													<Button className="text-white" size="sm" variant={"default"}>
+														Test
+													</Button>
+												</TableCell>
+											</TableRow>
+										))}
+									</TableBody>
+								</Table>
+							</div>
 						</div>
 					</div>
 

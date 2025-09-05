@@ -15,28 +15,30 @@ type DataTableProps = {
 
 export default function DataTable({ data }: DataTableProps) {
 	return (
-		<div className="bg-white h-fit grow-1 p-2 rounded-sm">
-			<Table>
-				<TableCaption>A list of top topics.</TableCaption>
-				<TableHeader className="bg-primary">
-					<TableRow className="">
-						<TableHead className="text-white">Topic</TableHead>
-						<TableHead className="text-white">Sessions</TableHead>
-						<TableHead className="text-white">Avg. Duration</TableHead>
-						<TableHead className="text-white">% Red-Flag</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{data.map((row, idx) => (
-						<TableRow key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}>
-							<TableCell className="px-6 py-3 font-medium text-foreground">{row.topic}</TableCell>
-							<TableCell className="px-6 py-3">{row.sessions.toLocaleString()}</TableCell>
-							<TableCell className="px-6 py-3">{row.duration}</TableCell>
-							<TableCell className="px-6 py-3">{row.redFlag}</TableCell>
+		<div className="bg-white p-4 rounded-sm shadow-sm overflow-y-auto border-b">
+			<div className="shadow-sm bg-white rounded-md overflow-y-auto border-b">
+				<Table>
+					<TableCaption>A list of top topics.</TableCaption>
+					<TableHeader className="bg-primary">
+						<TableRow className="">
+							<TableHead className="text-white">Topic</TableHead>
+							<TableHead className="text-white">Sessions</TableHead>
+							<TableHead className="text-white">Avg. Duration</TableHead>
+							<TableHead className="text-white">% Red-Flag</TableHead>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableHeader>
+					<TableBody>
+						{data.map((row, idx) => (
+							<TableRow key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}>
+								<TableCell className=" font-medium text-foreground">{row.topic}</TableCell>
+								<TableCell className="">{row.sessions.toLocaleString()}</TableCell>
+								<TableCell className="">{row.duration}</TableCell>
+								<TableCell className="">{row.redFlag}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 		</div>
 	);
 }
