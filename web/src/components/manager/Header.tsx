@@ -13,7 +13,7 @@ import {
 	DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-function AdminHeader({ children }: { children: ReactNode }) {
+function ManagerHeader({ children }: { children: ReactNode }) {
 	return (
 		<div className="px-7 pb-5 pt-3 shadow-2xs bg-white flex items-center justify-between">
 			{children}
@@ -29,7 +29,7 @@ function AdminHeader({ children }: { children: ReactNode }) {
 						<DropdownMenuLabel>My Account</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
-							<Link href="/admin/profile">Profile</Link>
+							<Link href="/manager/profile">Profile</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Button className="w-full text-white" onClick={() => signOut()}>
@@ -43,4 +43,4 @@ function AdminHeader({ children }: { children: ReactNode }) {
 		</div>
 	);
 }
-export default AdminHeader;
+export default ManagerHeader;
