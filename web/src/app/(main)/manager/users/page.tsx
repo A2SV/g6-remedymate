@@ -18,8 +18,10 @@ export default function ManagerDash() {
 			</ManagerHeader>
 			<div className="container mx-auto px-7 my-4 flex flex-col gap-4">
 				<Active />
-				<Data />
-				<AddUser />
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+					<Data />
+					<AddUser />
+				</div>
 			</div>
 		</div>
 	);

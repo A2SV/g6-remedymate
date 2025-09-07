@@ -1,9 +1,12 @@
 "use client";
+import { Redflag } from "@/data-access/redflags";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-
-function RedflagsTable() {
+interface Props {
+	redflags: Redflag[];
+}
+function RedflagsTable({ redflags }: Props) {
 	return (
 		<div className="bg-white p-2 rounded-sm md:col-span-2">
 			<h3 className="text-lg font-semibold pb-2">Redflags</h3>
@@ -18,20 +21,22 @@ function RedflagsTable() {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						<TableRow>
-							<TableCell className="font-medium">English</TableCell>
-							<TableCell>Amharic</TableCell>
-							<TableCell className="flex gap-2">
-								<Link
-									href="/admin/redflags/1"
-									scroll={false}
-									className="bg-blue-900 px-2 rounded-sm flex items-center justify-center text-white"
-								>
-									Edit
-								</Link>
-								<Button variant={"destructive"}>Delete</Button>
-							</TableCell>
-						</TableRow>
+						{redflags.map((redflag, idx) => (
+							<TableRow key={idx}>
+								<TableCell className="font-medium">{redflag.description}</TableCell>
+								<TableCell>Amharic</TableCell>
+								<TableCell className="flex gap-2">
+									<Link
+										href="/admin/redflags/1"
+										scroll={false}
+										className="bg-blue-900 px-2 rounded-sm flex items-center justify-center text-white"
+									>
+										Edit
+									</Link>
+									<Button variant={"destructive"}>Delete</Button>
+								</TableCell>
+							</TableRow>
+						))}
 					</TableBody>
 				</Table>
 			</div>

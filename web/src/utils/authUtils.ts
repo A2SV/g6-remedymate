@@ -48,6 +48,7 @@ export async function loginUser(data: UserLogin): Promise<LoginResponse | null> 
 export async function refreshToken(refreshToken: RefreshToken): Promise<RefreshTokenResponse | null> {
 	const url = `${baseUrl}/auth/refresh`;
 	console.log("Attempting to refresh token", url);
+	console.log(refreshToken);
 	try {
 		const response = await fetch(url, {
 			method: "POST",

@@ -37,7 +37,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				} catch (error) {
 					console.log("Error occured during authentication", error);
 				}
-
 				return null;
 			},
 		}),
@@ -65,6 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 					if (!tokens) {
 						console.log("Error refreshing token", tokens);
+						signOut({ redirectTo: "/" });
 						return null;
 					}
 					const expiresIn = jwtDecode(tokens.access_token).exp;

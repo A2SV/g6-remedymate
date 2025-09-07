@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShieldAlert } from "lucide-react";
 
-function RedFlagsManagement() {
+async function RedFlagsManagement() {
+	// const redflags = await getRedflags();
 	return (
 		<div className="flex flex-col gap-4 min-h-screen">
 			<AdminHeader>
@@ -16,7 +17,7 @@ function RedFlagsManagement() {
 			</AdminHeader>
 			<div className="container mx-auto flex flex-col min-h-screen">
 				<div className="px-7 grid md:grid-cols-3 grid-cols-1  gap-4 mb-auto">
-					<RedflagsTable />
+					<RedflagsTable redflags={[]} />
 					<RedflagTest />
 				</div>
 				<div className="px-7 mb-5">
