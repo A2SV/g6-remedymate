@@ -10,7 +10,7 @@ function Modal({ children, onOpenChange }: Props) {
 	return (
 		<Dialog open={true} onOpenChange={onOpenChange ? onOpenChange : () => router.back()}>
 			<DialogTitle></DialogTitle>
-			<DialogContent className="bg-white">{children}</DialogContent>
+			<DialogContent className="bg-white w-screen">{children}</DialogContent>
 		</Dialog>
 	);
 }

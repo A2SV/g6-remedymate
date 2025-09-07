@@ -4,8 +4,10 @@ import Data from "@/components/manager/Data";
 import ManagerHeader from "@/components/manager/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getProfiles } from "@/data-access/profile";
 import { Search } from "lucide-react";
-export default function ManagerDash() {
+export default async function ManagerDash() {
+	const users = await getProfiles();
 	return (
 		<div className="min-h-screen">
 			<ManagerHeader>
@@ -19,7 +21,7 @@ export default function ManagerDash() {
 			<div className="container mx-auto px-7 my-4 flex flex-col gap-4">
 				<Active />
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-					<Data />
+					<Data users={users} />
 					<AddUser />
 				</div>
 			</div>

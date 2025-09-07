@@ -28,6 +28,10 @@ export type RefreshTokenResponse = {
 	refresh_token: string;
 };
 
+export type ErrorRefreshToken = {
+	error: string;
+};
+
 export type RefreshToken = {
 	refresh_token: string;
 };
