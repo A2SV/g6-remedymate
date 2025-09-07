@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	],
 	callbacks: {
 		authorized: async ({ auth }) => {
-			console.log("Checking authorization status:", auth);
+			console.log("Checking authorization status:", auth?.user.name);
 			return !!auth?.user;
 		},
 		async jwt({ token, user, account }) {
@@ -63,8 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 					const tokens = await refreshToken({ refresh_token: token.refreshToken });
 
 					if (!tokens) {
-						console.log("Error refreshing token", tokens);
-						signOut({ redirectTo: "/" });
+						console.log("Error refreshing token");
 						return null;
 					}
 					const expiresIn = jwtDecode(tokens.access_token).exp;

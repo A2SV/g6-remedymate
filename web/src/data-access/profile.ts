@@ -24,6 +24,19 @@ export type ProfileInfo = {
 	};
 };
 
+export type ProfileInfos = {
+	data: ProfileInfo[];
+	pagination: {
+		page: number;
+		limit: number;
+		total: number;
+		total_pages: number;
+		has_next: boolean;
+		has_prev: boolean;
+	};
+	message: string;
+};
+
 export type UpdateProfile = {
 	username: string;
 	personalInfo: {
@@ -73,6 +86,21 @@ export async function deleteProfile(): Promise<{ message: string }> {
 	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "DELETE",
+		headers: {
+			Authorization: `Bearer ${session?.user.accessToken}`,
+			"Content-Type": "application/json",
+		},
+	});
+
+	const data = await response.json();
+	return data;
+}
+
+export async function getProfiles(): Promise<ProfileInfos> {
+	const session = await auth();
+	const API_BASE = `${process.env.API_BASE}/admin/users/profiles/paginated`;
+	const response = await fetch(API_BASE, {
+		method: "GET",
 		headers: {
 			Authorization: `Bearer ${session?.user.accessToken}`,
 			"Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import { UserLogin } from "@/lib/zod/authSchema";
 import {
 	ErrorLoginResponse,
+	ErrorRefreshToken,
 	LoginResponse,
 	RefreshToken,
 	RefreshTokenResponse,
@@ -55,7 +56,13 @@ export async function refreshToken(refreshToken: RefreshToken): Promise<RefreshT
 			body: JSON.stringify(refreshToken),
 		});
 
-		const responseData: RefreshTokenResponse = await response.json();
+		const responseData: RefreshTokenResponse | ErrorRefreshToken = await response.json();
+		if ("error" in responseData) {
+			throw new Error(responseData.error);
+		}
+		if (!("access_token" in responseData)) {
+			return null;
+		}
 		return responseData;
 	} catch (error) {
 		console.log("Failed refreshing token", error);

@@ -14,23 +14,17 @@ export type Topic = {
 	translations: {
 		en: {
 			self_care: string[];
-			otc_categories: [
-				{
-					category_name: string;
-					safety_note: string;
-				}
-			];
+			otc_categories: {
+				category_name: string;
+			}[];
 			seek_care_if: string[];
 			disclaimer: string;
 		};
 		am: {
 			self_care: string[];
-			otc_categories: [
-				{
-					category_name: string;
-					safety_note: string;
-				}
-			];
+			otc_categories: {
+				category_name: string;
+			}[];
 			seek_care_if: string[];
 			disclaimer: string;
 		};
@@ -67,12 +61,15 @@ export async function getTopics(): Promise<{ topics: Topic[]; total_count: numbe
 	});
 	const data = await response.json();
 	console.log(data);
+	if (!data.topics) {
+		data.topics = [];
+	}
 	return data;
 }
 
-export async function addTopic(topic: Topic): Promise<Topic> {
+export async function addTopic(topic: Topic): Promise<Topic | { error: string }> {
 	const session = await auth();
-	const response = await fetch(API_BASE, {
+	const response = await fetch(`${process.env.API_BASE}/admin/topic`, {
 		method: "POST",
 		body: JSON.stringify(topic),
 		headers: {
@@ -82,6 +79,7 @@ export async function addTopic(topic: Topic): Promise<Topic> {
 	});
 
 	const data = await response.json();
+	console.log(data);
 	return data;
 }
 

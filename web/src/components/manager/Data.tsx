@@ -1,4 +1,5 @@
 "use client";
+import { ProfileInfos } from "@/data-access/profile";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -6,7 +7,12 @@ import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 
-export default function Data() {
+interface Props {
+	users: ProfileInfos;
+}
+
+export default function Data({ users }: Props) {
+	console.log(users);
 	const [role, setRole] = useState("Role");
 	const [status, setStatus] = useState("Status");
 	const [language, setLanguage] = useState("Language");

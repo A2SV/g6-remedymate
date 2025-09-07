@@ -23,7 +23,7 @@ export default function Footer() {
 		setIsLoading(true);
 		try {
 			const response = await registerUser(data, window.location.origin);
-			toast.success("registration successfull, try again");
+			toast.success("registration successfull");
 			console.log(response);
 		} catch (error) {
 			console.log(error);
