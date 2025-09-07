@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 
-const session = await auth();
 const API_BASE = `${process.env.API_BASE}/users/profile`;
 
 export type ProfileInfo = {
@@ -42,6 +41,7 @@ export type DeleteProfile = {
 };
 
 export async function getUserProfile(): Promise<ProfileInfo> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "GET",
 		headers: {
@@ -55,6 +55,7 @@ export async function getUserProfile(): Promise<ProfileInfo> {
 }
 
 export async function updateProfile(profile: UpdateProfile): Promise<ProfileInfo> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "PUT",
 		body: JSON.stringify(profile),
@@ -69,6 +70,7 @@ export async function updateProfile(profile: UpdateProfile): Promise<ProfileInfo
 }
 
 export async function deleteProfile(): Promise<{ message: string }> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "DELETE",
 		headers: {

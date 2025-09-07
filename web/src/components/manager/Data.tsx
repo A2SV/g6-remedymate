@@ -16,7 +16,7 @@ export default function Data() {
 	const [openLanguage, setOpenLanguage] = useState(false);
 
 	return (
-		<div className=" bg-white rounded-md px-4">
+		<div className="col-span-2 bg-white rounded-md px-4 h-fit">
 			<div className="flex gap-5 py-3">
 				<DropdownMenu onOpenChange={setOpenRole}>
 					<DropdownMenuTrigger asChild>

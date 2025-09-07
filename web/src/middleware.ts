@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-const publicRoutes = ["/", "/login", "/denied", "/chat"];
+const publicRoutes = ["/", "/login", "/denied", "/chat", "/verify"];
 const rolePaths = {
 	admin: "/admin",
 	superadmin: "/manager",

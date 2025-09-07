@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 
-const session = await auth();
 const API_BASE = `${process.env.API_BASE}/admin/topics`;
 
 export type Topic = {
@@ -13,7 +12,7 @@ export type Topic = {
 	status?: string;
 	is_offline_cachable?: string;
 	translations: {
-		additionalProp1: {
+		en: {
 			self_care: string[];
 			otc_categories: [
 				{
@@ -24,18 +23,7 @@ export type Topic = {
 			seek_care_if: string[];
 			disclaimer: string;
 		};
-		additionalProp2: {
-			self_care: string[];
-			otc_categories: [
-				{
-					category_name: string;
-					safety_note: string;
-				}
-			];
-			seek_care_if: string[];
-			disclaimer: string;
-		};
-		additionalProp3: {
+		am: {
 			self_care: string[];
 			otc_categories: [
 				{
@@ -55,6 +43,7 @@ export type Topic = {
 };
 
 export async function getTopic(topic_key: string): Promise<Topic> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${topic_key}`, {
 		method: "GET",
 		headers: {
@@ -67,7 +56,8 @@ export async function getTopic(topic_key: string): Promise<Topic> {
 	return data;
 }
 
-export async function getTopics(): Promise<Topic[]> {
+export async function getTopics(): Promise<{ topics: Topic[]; total_count: number; page: number; limit: number }> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "GET",
 		headers: {
@@ -75,12 +65,13 @@ export async function getTopics(): Promise<Topic[]> {
 			"Content-Type": "application/json",
 		},
 	});
-
 	const data = await response.json();
+	console.log(data);
 	return data;
 }
 
 export async function addTopic(topic: Topic): Promise<Topic> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "POST",
 		body: JSON.stringify(topic),
@@ -95,6 +86,7 @@ export async function addTopic(topic: Topic): Promise<Topic> {
 }
 
 export async function updateTopic(topic_key: string, topic: Topic): Promise<Topic> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${topic_key}`, {
 		method: "PUT",
 		body: JSON.stringify(topic),
@@ -109,6 +101,7 @@ export async function updateTopic(topic_key: string, topic: Topic): Promise<Topi
 }
 
 export async function deleteTopic(topic_key: string): Promise<void> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${topic_key}`, {
 		method: "DELETE",
 		headers: {

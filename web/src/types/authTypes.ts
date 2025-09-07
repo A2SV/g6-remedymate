@@ -31,3 +31,11 @@ export type RefreshTokenResponse = {
 export type RefreshToken = {
 	refresh_token: string;
 };
+
+export type VerificationSuccess = {
+	message: string;
+};
+
+export type VerificationError = {
+	error: string;
+};

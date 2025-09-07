@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 
-const session = await auth();
 const API_BASE = `${process.env.API_BASE}/admin/redflags`;
 
 export type Redflag = {
@@ -14,6 +13,7 @@ export type Redflag = {
 };
 
 export async function getRedflag(id: string): Promise<Redflag> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${id}`, {
 		method: "GET",
 		headers: {
@@ -26,7 +26,8 @@ export async function getRedflag(id: string): Promise<Redflag> {
 	return data;
 }
 
-export async function getRedflags(): Promise<Redflag[]> {
+export async function getRedflags(): Promise<{ items: Redflag[] }> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "GET",
 		headers: {
@@ -34,12 +35,13 @@ export async function getRedflags(): Promise<Redflag[]> {
 			"Content-Type": "application/json",
 		},
 	});
-
 	const data = await response.json();
+	console.log(data);
 	return data;
 }
 
 export async function addRedflag(redflag: Redflag): Promise<Redflag> {
+	const session = await auth();
 	const response = await fetch(API_BASE, {
 		method: "POST",
 		body: JSON.stringify(redflag),
@@ -54,6 +56,7 @@ export async function addRedflag(redflag: Redflag): Promise<Redflag> {
 }
 
 export async function updateRedflag(id: string, redflag: Redflag): Promise<Redflag> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${id}`, {
 		method: "PUT",
 		body: JSON.stringify(redflag),
@@ -68,6 +71,7 @@ export async function updateRedflag(id: string, redflag: Redflag): Promise<Redfl
 }
 
 export async function deleteRedflag(id: string): Promise<void> {
+	const session = await auth();
 	const response = await fetch(`${API_BASE}/${id}`, {
 		method: "DELETE",
 		headers: {
