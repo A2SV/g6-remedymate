@@ -17,19 +17,21 @@ const NavLink = [
 const Header = () => {
 	const pathname = usePathname();
 	return (
-		<div className="bg-primary sticky top-0 z-50">
+		<div className="sticky bg-white/50 dark:bg-background/50 top-0 z-50 backdrop-blur-sm">
 			<div className="container mx-auto flex items-center justify-between p-5 text-white">
 				<div className="flex items-center gap-2">
 					{" "}
 					<Link href="/">
 						<p className=" bg-[hsl(212,70%,24%)] p-2 font-bold text-2xl rounded-2xl">RM</p>{" "}
 					</Link>
-					<h1 className="text-3xl font-bold md:mb-0">RemedyMate</h1>
+					<h1 className="text-3xl text-primary font-bold md:mb-0 dark:text-white">RemedyMate</h1>
 				</div>
-				<nav className="hidden md:flex gap-4 md:gap-6 text-center">
+				<nav className="hidden md:flex md:items-center gap-4 md:gap-6 text-center text-primary">
 					{NavLink.map(({ name, path }) => (
 						<Link
-							className={pathname.startsWith(path) ? `border-b-2 border-white` : ""}
+							className={`${
+								pathname.startsWith(path) ? `border-b-2 border-white` : ""
+							} hover:border-b-2 border-primary dark:text-white`}
 							key={name}
 							href={path}
 						>
