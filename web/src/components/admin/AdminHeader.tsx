@@ -1,5 +1,5 @@
 "use client";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -14,6 +14,7 @@ import {
 } from "../ui/dropdown-menu";
 
 function AdminHeader({ children }: { children: ReactNode }) {
+	const { data: session } = useSession();
 	return (
 		<div className="px-7 pb-5 pt-3 shadow-2xs bg-white flex items-center justify-between">
 			{children}
@@ -38,7 +39,7 @@ function AdminHeader({ children }: { children: ReactNode }) {
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
-				<p>username</p>
+				<p>{session?.user.name}</p>
 			</div>
 		</div>
 	);

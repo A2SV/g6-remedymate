@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-const publicRoutes = ["/", "/login", "/denied", "/chat", "/verify"];
+const publicRoutes = ["/", "/login", "/forbidden", "/chat", "/verify"];
 const rolePaths = {
 	admin: "/admin",
 	superadmin: "/manager",
@@ -14,7 +14,7 @@ export default auth((req) => {
 	}
 	if (isAuthenticated && !isPublicRoute) {
 		if (role && !req.nextUrl.pathname.startsWith(rolePaths[role as keyof typeof rolePaths])) {
-			return Response.redirect(new URL("/denied", req.nextUrl.origin));
+			return Response.redirect(new URL("/forbidden", req.nextUrl.origin));
 		}
 	}
 });
