@@ -1,9 +1,9 @@
-import { LoaderIcon } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 function LoadingSpinner() {
 	return (
-		<div className="absolute bg-background top-0 w-full h-full opacity-50 flex items-center justify-center">
-			<LoaderIcon className="text-7xl animate-spin" />
+		<div className="absolute bg-background top-0 right-0 w-full h-full opacity-50 flex items-center justify-center">
+			<LoaderCircle size={96} className="font-bold animate-spin text-primary" />
 		</div>
 	);
 }

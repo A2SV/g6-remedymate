@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	],
 	callbacks: {
 		authorized: async ({ auth }) => {
-			console.log("Checking authorization status:", auth?.user.name);
+			console.log("Checking authorization status:", auth?.user);
 			return !!auth?.user;
 		},
 		async jwt({ token, user, account }) {
@@ -79,9 +79,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		},
 		session({ session, token }) {
 			if (session) {
-				session.user.role = token.role;
-				session.user.accessToken = token.accessToken;
-				session.user.name = token.name;
+				if (!token) {
+					session.user.error = "Error has occured";
+				} else {
+					session.user.role = token.role;
+					session.user.accessToken = token.accessToken;
+					session.user.name = token.name;
+				}
 			}
 			return session;
 		},

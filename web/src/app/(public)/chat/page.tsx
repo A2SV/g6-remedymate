@@ -1,58 +1,73 @@
+"use client";
+
+import { ChatHistory } from "@/components/chat/ChatHistory";
+import { ChatPage } from "@/components/chat/ChatPage";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Apple, SendIcon, ShieldAlert, Smartphone } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { MessageSquare } from "lucide-react";
+import { useEffect, useState } from "react";
 
-export default function ChatboxPage() {
+export default function HealthGuidancePage() {
+	const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+
+	useEffect(() => {
+		// Create a new session on page load
+		const sessionId = `session-${Date.now()}`;
+		setCurrentSessionId(sessionId);
+	}, []);
+
+	const handleNewChat = () => {
+		const sessionId = `session-${Date.now()}`;
+		setCurrentSessionId(sessionId);
+	};
+
+	const handleLoadSession = (sessionId: string) => {
+		setCurrentSessionId(sessionId);
+	};
+
 	return (
-		<div className="relative flex items-center justify-center">
-			<div className="w-full md:w-9/10 max-w-[800px] mx-auto bg-white dark:bg-gray-800">
-				<header className="flex justify-between px-6 py-4 shadow-md h-[50px]">
-					<h1 className="top-3 font-bold text-center flex-1">Symptom Checker</h1>
-				</header>
-				<div className="h-[60vh] flex flex-col p-3 overflow-y-auto space-y-2">
-					<div className="w-fit max-w-[70%] rounded-lg bg-gray-200 px-4 py-2 text-gray-900">
-						Hello, how are you?
+		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+			<div className="flex h-screen">
+				<div className="w-80 border-r bg-white/50 backdrop-blur-sm">
+					<div className="p-4 border-b">
+						<Button
+							onClick={handleNewChat}
+							className="w-full flex items-center gap-2 text-white hover:opacity-90"
+							style={{ backgroundColor: "#0d2a4b" }}
+						>
+							<MessageSquare className="h-4 w-4" />
+							New Chat
+						</Button>
 					</div>
 
-					<div className="w-fit max-w-[70%] self-end rounded-lg bg-blue-600 px-4 py-2 text-white">
-						I’m good, thanks! And you?
-					</div>
-
-					<div className="w-fit max-w-[70%] rounded-lg bg-gray-200 px-4 py-2 text-gray-900">Doing well!</div>
-
-					<div className="w-fit max-w-[70%] self-end rounded-lg bg-blue-600 px-4 py-2 text-white">
-						That’s great to hear.
+					<div className="flex-1">
+						<ChatHistory onLoadSession={handleLoadSession} />
 					</div>
 				</div>
 
-				<footer className="px-3 py-4 border-t">
-					<div className="flex items-center gap-2 relative">
-						<div className="relative flex-1">
-							<Input type="text" placeholder="Type a message..." className="w-full h-[50px] pl-3 pr-14" />
-							<div className="absolute right-3 bottom-1 w-10 h-10  rounded-full flex items-center justify-center cursor-pointer">
-								<SendIcon />
+				<div className="flex-1 flex flex-col">
+					{/* Disclaimer */}
+					<Card className="m-6 mb-4 p-4 bg-amber-50 border-amber-200">
+						<div className="flex items-start gap-3">
+							<div className="p-1 bg-amber-100 rounded-full mt-0.5">
+								<div className="w-2 h-2 bg-amber-600 rounded-full" />
 							</div>
-						</div>
-					</div>
-					<div className="mt-5">
-						<div className="bg-amber-gold rounded-sm p-4 flex flex-col md:flex-row items-center gap-2">
-							<div className="flex gap-3 items-start">
-								<ShieldAlert className="w-1/4" />
-								<p className="grow-1">
-									This is a demo version of the application. please download the mobile app.
+							<div className="text-sm">
+								<p className="font-medium text-amber-800 mb-1">Important Medical Disclaimer</p>
+								<p className="text-amber-700">
+									This AI assistant provides general health information only and is not a substitute
+									for professional medical advice. Always consult with a qualified healthcare provider
+									for medical concerns.
 								</p>
 							</div>
-							<div className="flex flex-col gap-3 md:flex-row">
-								<Button variant="default" className="bg-[hsl(160,84%,25%)] flex items-center gap-2">
-									<Smartphone className="w-6 h-6 text-white" /> Get it on Android
-								</Button>
-								<Button variant="secondary" className="bg-[#F59E0B] flex items-center gap-2">
-									<Apple className="w-6 h-6 text-black" /> Download for iOS
-								</Button>
-							</div>
 						</div>
+					</Card>
+
+					{/* Chat Interface */}
+					<div className="flex-1 px-6 pb-6">
+						{currentSessionId && <ChatPage sessionId={currentSessionId} onNewSession={handleNewChat} />}
 					</div>
-				</footer>
+				</div>
 			</div>
 		</div>
 	);

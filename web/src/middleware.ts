@@ -1,20 +1,21 @@
 import { auth } from "@/auth";
+import { NextResponse } from "next/server";
 const publicRoutes = ["/", "/login", "/forbidden", "/chat", "/verify"];
 const rolePaths = {
 	admin: "/admin",
 	superadmin: "/manager",
 };
 export default auth((req) => {
-	const isAuthenticated = !!req.auth;
+	const isAuthenticated = !!req.auth && !req.auth?.user?.error;
 	const isPublicRoute = publicRoutes.includes(req.nextUrl.pathname);
 	const newUrl = new URL("/", req.nextUrl.origin);
 	const role = req.auth?.user.role;
 	if (!isAuthenticated && !isPublicRoute) {
-		return Response.redirect(newUrl);
+		return NextResponse.redirect(newUrl);
 	}
 	if (isAuthenticated && !isPublicRoute) {
 		if (role && !req.nextUrl.pathname.startsWith(rolePaths[role as keyof typeof rolePaths])) {
-			return Response.redirect(new URL("/forbidden", req.nextUrl.origin));
+			return NextResponse.redirect(new URL("/forbidden", req.nextUrl.origin));
 		}
 	}
 });
