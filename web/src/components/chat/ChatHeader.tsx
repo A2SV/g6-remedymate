@@ -1,10 +1,8 @@
-"use client";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "./ThemeToggle";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
-
+import { ThemeToggle } from "../ThemeToggle";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
 const NavLink = [
 	{ name: "Home", path: "/#hero" },
 	{ name: "Try it", path: "/chat" },
@@ -13,11 +11,11 @@ const NavLink = [
 	{ name: "Testimonials", path: "/#testimonials" },
 	{ name: "Login", path: "/login" },
 ];
-
-const Header = () => {
+function ChatHeader() {
 	const pathname = usePathname();
+
 	return (
-		<div className="sticky bg-white/50 dark:bg-background/50 top-0 z-50 backdrop-blur-sm">
+		<div className=" bg-white dark:bg-background/50backdrop-blur-sm">
 			<div className="container mx-auto flex items-center justify-between p-5 text-white">
 				<div className="flex items-center gap-2">
 					{" "}
@@ -58,7 +56,7 @@ const Header = () => {
 											{name}
 										</Link>
 									))}
-									<ThemeToggle />
+									{/* <ThemeToggle /> */}
 								</SheetDescription>
 							</SheetHeader>
 						</SheetContent>
@@ -67,6 +65,5 @@ const Header = () => {
 			</div>
 		</div>
 	);
-};
-
-export default Header;
+}
+export default ChatHeader;

@@ -2,23 +2,25 @@
 
 import type React from "react";
 
-import { Badge } from "@/components/ui/badge";
+import { sendMessage } from "@/actions/chat";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { saveSession } from "@/data-access/chatstorage";
 import { cn } from "@/lib/utils";
-import { AlertCircle, Bot, CheckCircle, Send, User } from "lucide-react";
+import { Bot, Send, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-interface Message {
+export interface Message {
 	id: string;
 	type: "user" | "ai";
-	content: string;
+	content: string | React.ReactNode;
 	timestamp: Date;
-	category?: "symptom" | "question" | "assessment" | "recommendation";
+	chatId?: string;
+	language: "en" | "am";
 }
 
-interface ChatSession {
+export interface ChatSession {
 	id: string;
 	messages: Message[];
 	title: string;
@@ -28,14 +30,15 @@ interface ChatSession {
 
 interface ChatInterfaceProps {
 	sessionId: string;
-	onNewSession: () => void;
+	language: "en" | "am";
 }
 
-export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
+export function ChatPage({ sessionId, language }: ChatInterfaceProps) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [input, setInput] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
+	const [chatId, setChatId] = useState<string | undefined>();
 
 	// Load session from localStorage
 	useEffect(() => {
@@ -43,7 +46,7 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 		if (savedSessions) {
 			const sessions: ChatSession[] = JSON.parse(savedSessions);
 			const currentSession = sessions.find((s) => s.id === sessionId);
-			if (currentSession) {
+			if (currentSession && currentSession.messages.length > 0) {
 				setMessages(
 					currentSession.messages.map((m) => ({
 						...m,
@@ -58,7 +61,7 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 					content:
 						"Hello! I'm your HealthGuide AI assistant. I'm here to help you understand your symptoms and provide general health guidance. Please describe any symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation. Remember, I'm not a replacement for professional medical care.",
 					timestamp: new Date(),
-					category: "question",
+					language: language,
 				};
 				setMessages([welcomeMessage]);
 			}
@@ -70,112 +73,12 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 				content:
 					"Hello! I'm your HealthGuide AI assistant. I'm here to help you understand your symptoms and provide general health guidance. Please describe any symptoms you're experiencing, and I'll ask follow-up questions to better understand your situation. Remember, I'm not a replacement for professional medical care.",
 				timestamp: new Date(),
-				category: "question",
+				language: language,
 			};
 			setMessages([welcomeMessage]);
 		}
-	}, [sessionId]);
-
-	// Save session to localStorage
-	const saveSession = (updatedMessages: Message[]) => {
-		const savedSessions = localStorage.getItem("health-chat-sessions");
-		const sessions: ChatSession[] = savedSessions ? JSON.parse(savedSessions) : [];
-
-		const sessionIndex = sessions.findIndex((s) => s.id === sessionId);
-		const sessionTitle = updatedMessages.find((m) => m.type === "user")?.content.slice(0, 50) + "..." || "New Chat";
-
-		const sessionData: ChatSession = {
-			id: sessionId,
-			messages: updatedMessages,
-			title: sessionTitle,
-			createdAt: sessionIndex === -1 ? new Date() : sessions[sessionIndex].createdAt,
-			lastUpdated: new Date(),
-		};
-
-		if (sessionIndex === -1) {
-			sessions.unshift(sessionData);
-		} else {
-			sessions[sessionIndex] = sessionData;
-		}
-
-		// Keep only last 20 sessions
-		if (sessions.length > 20) {
-			sessions.splice(20);
-		}
-
-		localStorage.setItem("health-chat-sessions", JSON.stringify(sessions));
-	};
-
-	// Auto-scroll to bottom
-	useEffect(() => {
-		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, [messages]);
-
-	// Mock AI response generator
-	const generateAIResponse = (userMessage: string, messageHistory: Message[]): Message => {
-		const lowerMessage = userMessage.toLowerCase();
-
-		// Symptom keywords
-		const symptomKeywords = [
-			"pain",
-			"ache",
-			"hurt",
-			"fever",
-			"headache",
-			"nausea",
-			"dizzy",
-			"tired",
-			"cough",
-			"sore",
-			"swollen",
-			"rash",
-			"itch",
-		];
-		const hasSymptoms = symptomKeywords.some((keyword) => lowerMessage.includes(keyword));
-
-		let response = "";
-		let category: Message["category"] = "question";
-
-		if (messageHistory.length <= 2) {
-			// Initial symptom gathering
-			if (hasSymptoms) {
-				response =
-					"I understand you're experiencing some symptoms. To better help you, could you please provide more details about:\n\n• When did these symptoms start?\n• How severe are they on a scale of 1-10?\n• Have you noticed any patterns or triggers?\n• Are you taking any medications currently?\n\nThis information will help me provide more targeted guidance.";
-				category = "assessment";
-			} else {
-				response =
-					"I'm here to help with your health concerns. Could you describe any symptoms you're experiencing? For example, you might mention pain, discomfort, changes in how you feel, or anything that seems unusual for you.";
-				category = "question";
-			}
-		} else {
-			// Follow-up responses
-			if (
-				lowerMessage.includes("severe") ||
-				lowerMessage.includes("emergency") ||
-				lowerMessage.includes("chest pain")
-			) {
-				response =
-					"⚠️ Based on what you've described, these symptoms may require immediate medical attention. I strongly recommend:\n\n• Contact your healthcare provider immediately\n• Consider visiting an urgent care center or emergency room\n• Call emergency services if symptoms are severe\n\nPlease don't delay seeking professional medical care for serious symptoms.";
-				category = "recommendation";
-			} else if (lowerMessage.includes("better") || lowerMessage.includes("improving")) {
-				response =
-					"I'm glad to hear you're feeling better! Here are some general wellness tips to support your recovery:\n\n• Stay hydrated with plenty of water\n• Get adequate rest and sleep\n• Eat nutritious foods\n• Monitor your symptoms\n\nIf symptoms return or worsen, don't hesitate to consult with a healthcare professional.";
-				category = "recommendation";
-			} else {
-				response =
-					"Thank you for providing those details. Based on what you've shared, here are some general considerations:\n\n• Your symptoms could have various causes\n• Keeping track of when they occur can be helpful\n• Consider any recent changes in diet, stress, or activities\n\nI recommend discussing these symptoms with a healthcare provider who can perform a proper examination and provide personalized medical advice. Would you like me to suggest some questions you could ask your doctor?";
-				category = "assessment";
-			}
-		}
-
-		return {
-			id: `ai-${Date.now()}`,
-			type: "ai",
-			content: response,
-			timestamp: new Date(),
-			category,
-		};
-	};
+		setChatId(undefined);
+	}, [sessionId, language]);
 
 	const handleSend = async () => {
 		if (!input.trim() || isLoading) return;
@@ -185,23 +88,78 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 			type: "user",
 			content: input.trim(),
 			timestamp: new Date(),
-			category: "symptom",
+			language,
+			chatId,
 		};
 
 		const updatedMessages = [...messages, userMessage];
-		setMessages(updatedMessages);
+		setMessages(updatedMessages); // only updates state
 		setInput("");
 		setIsLoading(true);
 
-		// Simulate AI thinking time
-		setTimeout(() => {
-			const aiResponse = generateAIResponse(input.trim(), messages);
-			const finalMessages = [...updatedMessages, aiResponse];
-			setMessages(finalMessages);
-			saveSession(finalMessages);
+		try {
+			const resp = await sendMessage(userMessage);
+
+			let aiResponse: Message;
+
+			if ("error" in resp) {
+				aiResponse = {
+					id: `ai-${Date.now()}`,
+					type: "ai",
+					content: resp.error,
+					timestamp: new Date(),
+					language,
+				};
+			} else if ("remedy" in resp) {
+				// Store as serializable object
+				aiResponse = {
+					id: `ai-${Date.now()}`,
+					type: "ai",
+					content: JSON.stringify({
+						selfCare: resp.remedy.guidance_card.self_care,
+						otcCategories: resp.remedy.guidance_card.otc_categories,
+						seekCareIf: resp.remedy.guidance_card.seek_care_if,
+					}),
+					timestamp: new Date(),
+					language,
+					chatId: resp.conversation_id,
+				};
+				setChatId(resp.conversation_id);
+			} else {
+				aiResponse = {
+					id: `ai-${Date.now()}`,
+					type: "ai",
+					content: resp.question.text,
+					timestamp: new Date(),
+					language,
+					chatId: resp.conversation_id,
+				};
+				setChatId(resp.conversation_id);
+			}
+
+			setMessages((prev) => [...prev, aiResponse]);
+		} catch (error) {
+			console.error(error);
+			const aiResponse: Message = {
+				id: `ai-${Date.now()}`,
+				type: "ai",
+				content: "Error occurred, please try again later.",
+				timestamp: new Date(),
+				language,
+			};
+			setMessages((prev) => [...prev, aiResponse]);
+		} finally {
 			setIsLoading(false);
-		}, 1000 + Math.random() * 2000);
+		}
 	};
+
+	// persist session automatically whenever messages change
+	useEffect(() => {
+		if (messages.length > 0) {
+			saveSession(messages, sessionId);
+		}
+		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [messages, sessionId]);
 
 	const handleKeyPress = (e: React.KeyboardEvent) => {
 		if (e.key === "Enter" && !e.shiftKey) {
@@ -213,10 +171,10 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 	return (
 		<Card className="flex flex-col">
 			{/* Messages */}
-			<div className="h-[60vh] flex flex-col overflow-y-auto p-4 space-y-4">
+			<div className="grow-1 flex flex-col h-[50vh] overflow-y-auto p-4 space-y-4">
 				{messages.map((message) => (
 					<div
-						key={message.id}
+						key={message.timestamp.getTime()}
 						className={cn("flex gap-3", message.type === "user" ? "justify-end" : "justify-start")}
 					>
 						{message.type === "ai" && (
@@ -235,27 +193,76 @@ export function ChatPage({ sessionId, onNewSession }: ChatInterfaceProps) {
 							)}
 							style={message.type === "user" ? { backgroundColor: "#0d2a4b" } : {}}
 						>
-							{message.category && message.type === "ai" && (
-								<div className="mb-2">
-									<Badge
-										variant="secondary"
-										className={cn(
-											"text-xs",
-											message.category === "recommendation" && "bg-green-100 text-green-700",
-											message.category === "assessment" && "bg-blue-100 text-blue-700",
-											message.category === "question" && "bg-purple-100 text-purple-700"
-										)}
-									>
-										{message.category === "recommendation" && (
-											<CheckCircle className="h-3 w-3 mr-1" />
-										)}
-										{message.category === "assessment" && <AlertCircle className="h-3 w-3 mr-1" />}
-										{message.category}
-									</Badge>
-								</div>
-							)}
-
-							<div className="whitespace-pre-wrap">{message.content}</div>
+							<div className="whitespace-pre-wrap">
+								{(() => {
+									// Try to parse rich AI content
+									if (message.type === "ai" && typeof message.content === "string") {
+										try {
+											const parsed = JSON.parse(message.content as string);
+											if (
+												parsed &&
+												(parsed.selfCare?.length ||
+													parsed.otcCategories?.length ||
+													parsed.seekCareIf?.length)
+											) {
+												return (
+													<div className="space-y-4">
+														{parsed.selfCare?.length > 0 && (
+															<div className="border-l-4 border-green-500 bg-green-50 p-3 rounded">
+																<div className="font-semibold text-green-700 mb-1">
+																	Self Care Advice
+																</div>
+																<ul className="list-disc ml-5 text-green-800">
+																	{parsed.selfCare.map(
+																		(advice: string, idx: number) => (
+																			<li key={idx}>{advice}</li>
+																		)
+																	)}
+																</ul>
+															</div>
+														)}
+														{parsed.otcCategories?.length > 0 && (
+															<div className="border-l-4 border-orange-500 bg-orange-50 p-3 rounded">
+																<div className="font-semibold text-orange-700 mb-1">
+																	Over-the-Counter Advice
+																</div>
+																<ul className="list-disc ml-5 text-orange-800">
+																	{parsed.otcCategories.map(
+																		(
+																			advice: { safety_note: string },
+																			idx: number
+																		) => (
+																			<li key={idx}>{advice.safety_note}</li>
+																		)
+																	)}
+																</ul>
+															</div>
+														)}
+														{parsed.seekCareIf?.length > 0 && (
+															<div className="border-l-4 border-red-500 bg-red-50 p-3 rounded">
+																<div className="font-semibold text-red-700 mb-1">
+																	Seek Care Advice
+																</div>
+																<ul className="list-disc ml-5 text-red-800">
+																	{parsed.seekCareIf.map(
+																		(advice: string, idx: number) => (
+																			<li key={idx}>{advice}</li>
+																		)
+																	)}
+																</ul>
+															</div>
+														)}
+													</div>
+												);
+											}
+										} catch {
+											// Not JSON, just render as text
+										}
+									}
+									// Default: render as text or ReactNode
+									return message.content;
+								})()}
+							</div>
 
 							<div
 								className={cn(

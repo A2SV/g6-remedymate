@@ -24,14 +24,15 @@ interface ChatSession {
 
 interface ChatHistoryProps {
 	onLoadSession: (sessionId: string) => void;
+	sessionId: string | null;
 }
 
-export function ChatHistory({ onLoadSession }: ChatHistoryProps) {
+export function ChatHistory({ onLoadSession, sessionId }: ChatHistoryProps) {
 	const [sessions, setSessions] = useState<ChatSession[]>([]);
 
 	useEffect(() => {
 		loadSessions();
-	}, []);
+	}, [sessionId]);
 
 	const loadSessions = () => {
 		const savedSessions = localStorage.getItem("health-chat-sessions");
@@ -95,7 +96,7 @@ export function ChatHistory({ onLoadSession }: ChatHistoryProps) {
 				</p>
 			</div>
 
-			<div className="flex-1 overflow-y-auto">
+			<div className="">
 				{sessions.length === 0 ? (
 					<div className="p-4 text-center text-gray-500">
 						<MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
