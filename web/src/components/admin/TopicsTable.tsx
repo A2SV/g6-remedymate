@@ -11,43 +11,29 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 interface Props {
   topics: { topics: Topic[]; total_count: number; page: number; limit: number };
 }
 function TopicsTable({ topics }: Props) {
-  const router = useRouter();
+  // local state so delete can be handled entirely client-side
+  const [localTopics, setLocalTopics] = useState<Topic[]>(
+    () => topics.topics || []
+  );
 
-  async function handleDelete(topic_key?: string) {
+  useEffect(() => {
+    setLocalTopics(topics.topics || []);
+  }, [topics.topics]);
+
+  function handleDelete(topic_key?: string) {
     if (!topic_key) return;
     const confirmed = confirm(
       `Delete topic ${topic_key}? This action is reversible (soft delete).`
     );
     if (!confirmed) return;
 
-    try {
-      // Call the server action endpoint by importing the action route relative to this page.
-      // Next.js server actions are available via calling the action module from client with fetch.
-      const res = await fetch(`/api/actions/deleteTopic`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic_key }),
-      });
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Failed to delete topic");
-      }
-
-      // Refresh the current route to reload server-side data
-      router.refresh();
-    } catch (err) {
-      console.error("Delete failed", err);
-      alert(
-        "Failed to delete topic: " +
-          (err instanceof Error ? err.message : String(err))
-      );
-    }
+    // remove locally, do not call any API
+    setLocalTopics((s) => s.filter((t) => t.topic_key !== topic_key));
   }
   return (
     <div className="bg-white h-fit grow-1 p-2 rounded-sm flex flex-col gap-3">
@@ -71,9 +57,9 @@ function TopicsTable({ topics }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {topics.topics.map((topic, idx) => (
+            {localTopics.map((topic, idx) => (
               <TableRow
-                key={idx}
+                key={topic.topic_key ?? idx}
                 className={idx % 2 === 0 ? "bg-white" : "bg-blue-100/40"}
               >
                 <TableCell>{topic.topic_key}</TableCell>

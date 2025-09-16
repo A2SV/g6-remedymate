@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Ethiopic, Poppins } from "next/font/google";
+import { unstable_ViewTransition as ViewTransition } from "react";
 
 const inter = Inter({
 	display: "swap",
@@ -36,12 +37,14 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>
-				<AuthProvider>
-					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-						<Toaster richColors position="top-right" />
-						{children}
-					</ThemeProvider>
-				</AuthProvider>
+				<ViewTransition name="page">
+					<AuthProvider>
+						<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+							<Toaster richColors position="top-right" />
+							{children}
+						</ThemeProvider>
+					</AuthProvider>
+				</ViewTransition>
 			</body>
 		</html>
 	);
