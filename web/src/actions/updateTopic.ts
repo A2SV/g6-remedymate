@@ -23,10 +23,14 @@ export async function updateTopicAction(topic_key: string, topic: AddTopicType) 
 						: [],
 				otc_categories: Array.isArray(topic.translations.en.otc_categories)
 					? topic.translations.en.otc_categories.map((cat: unknown) => {
-						  const c = cat as { category_name?: string; safety_note?: string } | string;
-						  if (typeof c === "string") return { category_name: c, safety_note: "" };
-						  return { category_name: c.category_name ?? "", safety_note: c.safety_note ?? "" };
+						const c = cat as { category_name?: string; safety_note?: string } | string;
+						if (typeof c === "string") return { category_name: c, safety_note: "" };
+						return { category_name: c.category_name ?? "", safety_note: c.safety_note ?? "" };
 					  })
+					: typeof topic.translations.en.otc_categories === "string"
+					? topic.translations.en.otc_categories
+						.split(",")
+						.map((s) => ({ category_name: s.trim(), safety_note: "" }))
 					: [],
 				seek_care_if: Array.isArray(topic.translations.en.seek_care_if)
 					? topic.translations.en.seek_care_if
@@ -43,10 +47,14 @@ export async function updateTopicAction(topic_key: string, topic: AddTopicType) 
 						: [],
 				otc_categories: Array.isArray(topic.translations.am.otc_categories)
 					? topic.translations.am.otc_categories.map((cat: unknown) => {
-						  const c = cat as { category_name?: string; safety_note?: string } | string;
-						  if (typeof c === "string") return { category_name: c, safety_note: "" };
-						  return { category_name: c.category_name ?? "", safety_note: c.safety_note ?? "" };
+						const c = cat as { category_name?: string; safety_note?: string } | string;
+						if (typeof c === "string") return { category_name: c, safety_note: "" };
+						return { category_name: c.category_name ?? "", safety_note: c.safety_note ?? "" };
 					  })
+					: typeof topic.translations.am.otc_categories === "string"
+					? topic.translations.am.otc_categories
+						.split(",")
+						.map((s) => ({ category_name: s.trim(), safety_note: "" }))
 					: [],
 				seek_care_if: Array.isArray(topic.translations.am.seek_care_if)
 					? topic.translations.am.seek_care_if
