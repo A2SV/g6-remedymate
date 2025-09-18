@@ -15,7 +15,12 @@ import { useState, useEffect } from "react";
 interface Props {
   topics: { topics: Topic[]; total_count: number; page: number; limit: number };
 }
-function TopicsTable({ topics }: Props) {
+interface PropsWithTest {
+  topics: { topics: Topic[]; total_count: number; page: number; limit: number };
+  onTest?: (topic: Topic) => void;
+}
+
+function TopicsTable({ topics, onTest }: PropsWithTest) {
   // local state so delete can be handled entirely client-side
   const [localTopics, setLocalTopics] = useState<Topic[]>(
     () => topics.topics || []
@@ -88,7 +93,12 @@ function TopicsTable({ topics }: Props) {
                   >
                     Delete
                   </Button>
-                  <Button className="text-white" size="sm" variant={"default"}>
+                  <Button
+                    className="text-white"
+                    size="sm"
+                    variant={"default"}
+                    onClick={() => onTest?.(topic)}
+                  >
                     Test
                   </Button>
                 </TableCell>

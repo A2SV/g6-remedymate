@@ -67,6 +67,53 @@ export default function TopicEditorClient({
   );
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  // AMHARIC fields
+  const [amOtc, setAmOtc] = useState<string[]>(
+    Array.isArray(initialTopic?.translations?.am?.otc_categories)
+      ? initialTopic.translations.am.otc_categories.map((c) =>
+          typeof c === "string"
+            ? c
+            : (c as { category_name?: string }).category_name ?? ""
+        )
+      : typeof initialTopic?.translations?.am?.otc_categories === "string"
+      ? initialTopic.translations.am.otc_categories
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : []
+  );
+  const [amOtcInput, setAmOtcInput] = useState("");
+  const [amSeek, setAmSeek] = useState<string[]>(
+    Array.isArray(initialTopic?.translations?.am?.seek_care_if)
+      ? (initialTopic.translations.am.seek_care_if as string[])
+      : typeof initialTopic?.translations?.am?.seek_care_if === "string"
+      ? initialTopic.translations.am.seek_care_if
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : []
+  );
+  const [amDisclaimer, setAmDisclaimer] = useState<string>(
+    initialTopic.translations.am.disclaimer || ""
+  );
+
+  // helper to normalize otc_categories (array of objects or CSV string) into string[]
+  function normalizeOtc(raw: unknown): string[] {
+    if (!raw) return [];
+    if (Array.isArray(raw)) {
+      return raw
+        .map((c) =>
+          typeof c === "string" ? c : (c as any).category_name ?? ""
+        )
+        .filter(Boolean);
+    }
+    if (typeof raw === "string")
+      return raw
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    return [];
+  }
 
   function addOtcFromInput() {
     const value = otcInput.trim();
@@ -92,6 +139,33 @@ export default function TopicEditorClient({
 
   function addSeekItem() {
     setSeek((s) => [...s, ""]);
+  }
+
+  function addAmOtcFromInput() {
+    const value = amOtcInput.trim();
+    if (!value) return;
+    if (amOtc.includes(value)) {
+      setAmOtcInput("");
+      return;
+    }
+    setAmOtc((s) => [...s, value]);
+    setAmOtcInput("");
+  }
+
+  function removeAmOtc(i: number) {
+    setAmOtc((s) => s.filter((_, idx) => idx !== i));
+  }
+
+  function addAmSeekItem() {
+    setAmSeek((s) => [...s, ""]);
+  }
+
+  function updateAmSeekItem(i: number, value: string) {
+    setAmSeek((s) => s.map((it, idx) => (idx === i ? value : it)));
+  }
+
+  function removeAmSeekItem(i: number) {
+    setAmSeek((s) => s.filter((_, idx) => idx !== i));
   }
 
   function updateSeekItem(i: number, value: string) {
@@ -121,29 +195,20 @@ export default function TopicEditorClient({
             },
             am: {
               ...initialTopic.translations.am,
-              otc_categories: Array.isArray(
-                initialTopic.translations.am.otc_categories
-              )
-                ? initialTopic.translations.am.otc_categories
-                    .map((c) => c.category_name)
-                    .join(",")
-                : initialTopic.translations.am.otc_categories || "",
-              seek_care_if: Array.isArray(
-                initialTopic.translations.am.seek_care_if
-              )
-                ? initialTopic.translations.am.seek_care_if.join(",")
-                : initialTopic.translations.am.seek_care_if || "",
+              otc_categories: amOtc.join(","),
+              seek_care_if: amSeek.join(","),
               self_care: initialTopic.translations.am.self_care
                 ? Array.isArray(initialTopic.translations.am.self_care)
                   ? initialTopic.translations.am.self_care.join(",")
                   : initialTopic.translations.am.self_care
                 : "",
+              disclaimer: amDisclaimer,
             },
           },
         };
         // prefer the topic_key from the topic itself (fetched from API); fall back to the route param
         const keyToUse = (updatedTopic as any).topic_key ?? topicKey;
-        await updateTopicAction(keyToUse, {
+        const saved = await updateTopicAction(keyToUse, {
           ...updatedTopic,
           translations: {
             en: {
@@ -161,25 +226,8 @@ export default function TopicEditorClient({
             },
             am: {
               ...updatedTopic.translations.am,
-              otc_categories: Array.isArray(
-                updatedTopic.translations.am.otc_categories
-              )
-                ? updatedTopic.translations.am.otc_categories
-                    .map((c: { category_name?: string } | string) =>
-                      typeof c === "string" ? c : c.category_name ?? ""
-                    )
-                    .join(",")
-                : typeof updatedTopic.translations.am.otc_categories ===
-                  "string"
-                ? updatedTopic.translations.am.otc_categories
-                : "",
-              seek_care_if: Array.isArray(
-                updatedTopic.translations.am.seek_care_if
-              )
-                ? updatedTopic.translations.am.seek_care_if.join(",")
-                : typeof updatedTopic.translations.am.seek_care_if === "string"
-                ? updatedTopic.translations.am.seek_care_if
-                : "",
+              otc_categories: amOtc.join(","),
+              seek_care_if: amSeek.join(","),
               self_care: Array.isArray(updatedTopic.translations.am.self_care)
                 ? updatedTopic.translations.am.self_care.join(",")
                 : typeof updatedTopic.translations.am.self_care === "string"
@@ -187,10 +235,22 @@ export default function TopicEditorClient({
                 : "",
               safety_note:
                 (updatedTopic.translations.am as any).safety_note ?? "",
-              disclaimer: updatedTopic.translations.am.disclaimer ?? "",
+              disclaimer: amDisclaimer,
             },
           },
         });
+        // update local UI with saved values so OTC shows immediately
+        try {
+          const savedEn = saved?.translations?.en?.otc_categories;
+          const savedAm = saved?.translations?.am?.otc_categories;
+          const newOtc = normalizeOtc(savedEn);
+          const newAmOtc = normalizeOtc(savedAm);
+          if (newOtc.length) setOtc(newOtc);
+          if (newAmOtc.length) setAmOtc(newAmOtc);
+        } catch (e) {
+          // ignore normalization errors
+        }
+
         toast.success("Topic updated successfully");
         // Refresh server-rendered data so the page shows the updated topic
         try {
@@ -285,6 +345,86 @@ export default function TopicEditorClient({
         <label className="block font-semibold mb-2">Disclaimer</label>
         <div className="rounded-lg border bg-gray-50 p-3 text-sm text-gray-700">
           {initialTopic.translations.en.disclaimer}
+        </div>
+      </div>
+
+      <hr className="my-6" />
+
+      <div className="mb-4">
+        <label className="block font-semibold mb-2">OTC Categories (AM)</label>
+        <div className="rounded-lg border p-3 bg-white">
+          <div className="flex flex-wrap gap-2 mb-3">
+            {amOtc.map((t, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-2 bg-blue-800 text-white px-3 py-1 rounded-full text-sm"
+              >
+                {t}
+                <button
+                  aria-label={`remove ${t}`}
+                  onClick={() => removeAmOtc(i)}
+                  className="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-700/80 text-xs"
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <Input
+            placeholder="Type and press Enter to add..."
+            value={amOtcInput}
+            onChange={(e) => setAmOtcInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addAmOtcFromInput();
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block font-semibold mb-2">
+          When to Seek Care (AM)
+        </label>
+        <div className="rounded-lg border p-3 bg-white space-y-2">
+          {amSeek.map((item, idx) => (
+            <div key={idx} className="flex items-center gap-2">
+              <Input
+                value={item}
+                onChange={(e) => updateAmSeekItem(idx, e.target.value)}
+                className="flex-1"
+              />
+              <button
+                onClick={() => removeAmSeekItem(idx)}
+                className="p-2 rounded bg-gray-100 text-gray-700"
+                aria-label="remove-item"
+              >
+                🗑
+              </button>
+            </div>
+          ))}
+
+          <div>
+            <button
+              onClick={addAmSeekItem}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-700 text-white text-sm"
+            >
+              + Add Item
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <label className="block font-semibold mb-2">Disclaimer (AM)</label>
+        <div className="rounded-lg border bg-gray-50 p-3 text-sm text-gray-700">
+          <Input
+            value={amDisclaimer}
+            onChange={(e) => setAmDisclaimer(e.target.value)}
+          />
         </div>
       </div>
 
