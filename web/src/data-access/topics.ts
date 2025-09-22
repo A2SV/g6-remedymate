@@ -70,17 +70,22 @@ export async function getTopic(topic_key: string): Promise<Topic> {
 
 	try {
 		return await response.json();
-	} catch (_e: unknown) {
+	} catch (e) {
+		console.log(e);
 		throw new Error("Failed to parse topic data: Response is not valid JSON");
 	}
 }
 
-
-export async function getTopics(page = 1, limit = 50): Promise<{ topics: Topic[]; total_count: number; page: number; limit: number }> {
+export async function getTopics(
+	page = 1,
+	limit = 50
+): Promise<{ topics: Topic[]; total_count: number; page: number; limit: number }> {
 	const session = await auth();
 	// Build a straightforward URL string. If API_PREFIX is empty this becomes a relative path like
 	// /api/v1/admin/topics?page=1&limit=50 which will be handled by the Next.js server.
-	const url = `${API_BASE}/topics?page=${encodeURIComponent(String(page))}&limit=${encodeURIComponent(String(limit))}`;
+	const url = `${API_BASE}/topics?page=${encodeURIComponent(String(page))}&limit=${encodeURIComponent(
+		String(limit)
+	)}`;
 
 	const response = await fetch(url, {
 		method: "GET",

@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 export interface Message {
 	id: string;
 	type: "user" | "ai";
-	content: string | React.ReactNode;
+	content: string;
 	timestamp: Date;
 	chatId?: string;
 	language: "en" | "am";
