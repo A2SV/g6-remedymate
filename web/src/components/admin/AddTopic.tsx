@@ -27,7 +27,7 @@ function AddTopic() {
 			const response = await addNewTopic(data);
 			console.log(response);
 			if ("error" in response) {
-				throw new Error(response.error);
+				throw response.error;
 			}
 			toast.success("topic added successfuly");
 		} catch (error) {
