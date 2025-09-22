@@ -37,25 +37,8 @@ export async function getRedflags(): Promise<{ items: Redflag[] }> {
 	});
 	const data = await response.json();
 	console.log(data);
-	return data.items ?? [];
+	return data;
 }
-// export async function getRedflags(): Promise<Redflag[]> {
-//   const session = await auth();
-//   const response = await fetch(`${API_BASE}/api/v1/admin/redflags`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${session?.user.accessToken}`,
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   const data = await response.json();
-//   console.log(data);
-
-//   // Return just the array
-//   return data.items ?? [];
-// }
-
 
 export async function addRedflag(redflag: Redflag): Promise<Redflag> {
 	const session = await auth();
