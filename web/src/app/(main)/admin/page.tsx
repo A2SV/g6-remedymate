@@ -1,6 +1,4 @@
-import { redirect } from "next/navigation";
-
 function AdminRoot() {
-	redirect("/admin/analytics");
+	<h1>Adminrootpage</h1>;
 }
 export default AdminRoot;

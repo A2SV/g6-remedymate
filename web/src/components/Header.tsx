@@ -7,7 +7,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 
 const NavLink = [
 	{ name: "Home", path: "/#hero" },
-	{ name: "Try it", path: "/chat" },
 	{ name: "About", path: "/#about" },
 	{ name: "Features", path: "/#features" },
 	{ name: "Testimonials", path: "/#testimonials" },
