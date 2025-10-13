@@ -1,5 +1,4 @@
 import { Toaster } from "@/components/ui/sonner";
-import { AuthProvider } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -38,12 +37,10 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${inter.variable} ${poppins.variable} ${ethiopic.variable}`}>
 				<ViewTransition name="page">
-					<AuthProvider>
-						<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-							<Toaster richColors position="top-right" />
-							{children}
-						</ThemeProvider>
-					</AuthProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+						<Toaster richColors position="top-right" />
+						{children}
+					</ThemeProvider>
 				</ViewTransition>
 			</body>
 		</html>

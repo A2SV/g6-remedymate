@@ -203,3 +203,12 @@
 		@apply mt-3 bg-white/10 rounded-lg h-16;
 	}
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+	}
+  body {
+    @apply bg-background text-foreground;
+	}
+}
