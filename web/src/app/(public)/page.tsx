@@ -1,10 +1,10 @@
-import CtaSection from "@/components/CtaSection";
-import Features from "@/components/Features";
-import Hero from "@/components/Hero";
-import Navigation from "@/components/Navigation";
-import SeamlessSection from "@/components/SeamlessSection";
-import Testimonials from "@/components/Testimonials";
-import TrustSection from "@/components/TrustSection";
+import CtaSection from '@/components/home/CtaSection';
+import Features from '@/components/home/Features';
+import Hero from '@/components/home/Hero';
+import Navigation from '@/components/home/Navigation';
+import SeamlessSection from '@/components/home/SeamlessSection';
+import Testimonials from '@/components/home/Testimonials';
+import TrustSection from '@/components/home/TrustSection';
 
 export default async function Home() {
 	return (

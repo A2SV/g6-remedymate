@@ -1,10 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Apple, Download } from "lucide-react";
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { Apple, Download } from 'lucide-react';
+import Image from 'next/image';
 
 const Hero = () => {
 	return (
-		<section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+		<section
+			id="home"
+			className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+		>
 			{/* Gradient Background */}
 			<div className="absolute inset-0 gradient-hero -z-10" />
 
@@ -13,19 +16,23 @@ const Hero = () => {
 					{/* Left Column - Content */}
 					<div className="text-center lg:text-left">
 						<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground mb-6 leading-tight">
-							Quality Healthcare at Your{" "}
-							<span className="bg-gradient-to-r from-primary to-[hsl(280_80%_70%)] bg-clip-text text-transparent">
+							Quality Healthcare at Your{' '}
+							<span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-foreground/0">
 								Convenience
 							</span>
 						</h1>
 
 						<p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-10 leading-relaxed">
-							Book appointments, consult with experienced doctors, manage prescriptions, and access your
-							health records—all from the comfort of your home.
+							Book appointments, consult with experienced doctors,
+							manage prescriptions, and access your health
+							records—all from the comfort of your home.
 						</p>
 
 						<div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-4">
-							<Button size="lg" className="rounded-full w-full sm:w-auto gap-2 shadow-soft">
+							<Button
+								size="lg"
+								className="rounded-full w-full sm:w-auto gap-2 shadow-soft"
+							>
 								<Apple className="w-5 h-5" />
 								App Store
 							</Button>
@@ -45,8 +52,8 @@ const Hero = () => {
 						<div className="relative rounded-3xl overflow-hidden shadow-soft hover:shadow-card transition-smooth">
 							<Image
 								src="/hero-consultation.png"
-								width={200}
-								height={200}
+								width={600}
+								height={600}
 								alt="Doctor consulting with patient via video call"
 								className="w-full h-auto"
 							/>
