@@ -42,7 +42,7 @@ function LoginForm({ error }: Props) {
 	}
 	return (
 		<div className="md:min-h-screen flex relative items-center justify-center">
-			<div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-md w-full h-full md:w-9/10 max-w-[1000px] mx-auto">
+			<div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-md w-full h-[500px] md:w-9/10 max-w-[500px] mx-auto">
 				<div className="flex flex-col items-center">
 					<h3 className="text-2xl font-bold">Welcome Back</h3>
 					<h3 className="mt-1 mb-7 font-medium text-sm">Sign in to continue to RemedyMate</h3>
