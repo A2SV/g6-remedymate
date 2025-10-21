@@ -44,7 +44,10 @@ export default function GlobalNotFound() {
 						</p>
 
 						<div className="pt-4">
-							<Button asChild className="text-white">
+							<Button
+								asChild
+								className="text-white cursor-pointer"
+							>
 								<Link href="/">Go Back Home</Link>
 							</Button>
 						</div>

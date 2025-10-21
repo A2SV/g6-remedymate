@@ -31,7 +31,7 @@ const Hero = () => {
 						<div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-4">
 							<Button
 								size="lg"
-								className="rounded-full w-full sm:w-auto gap-2 shadow-soft"
+								className="rounded-full w-full sm:w-auto gap-2 shadow-soft cursor-pointer"
 							>
 								<Apple className="w-5 h-5" />
 								App Store
@@ -39,7 +39,7 @@ const Hero = () => {
 							<Button
 								size="lg"
 								variant="outline"
-								className="rounded-full w-full sm:w-auto gap-2 border-2"
+								className="rounded-full w-full sm:w-auto gap-2 border-2 cursor-pointer"
 							>
 								<Download className="w-5 h-5" />
 								Download

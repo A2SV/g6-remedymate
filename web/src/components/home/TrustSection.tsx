@@ -75,7 +75,7 @@ const TrustSection = () => {
 
 						<Button
 							size="lg"
-							className="rounded-full w-full sm:w-auto shadow-soft mt-6"
+							className="rounded-full w-full sm:w-auto shadow-soft mt-6 cursor-pointer"
 						>
 							Get Started
 						</Button>

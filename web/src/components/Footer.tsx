@@ -106,7 +106,7 @@ const Footer = () => {
 							Get the latest health tips and updates delivered to
 							your inbox.
 						</p>
-						<Button className="w-full rounded-full">
+						<Button className="w-full rounded-full cursor-pointer">
 							Subscribe
 						</Button>
 					</div>

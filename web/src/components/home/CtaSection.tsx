@@ -30,7 +30,7 @@ const CtaSection = () => {
 						<div className="flex flex-col sm:flex-row gap-4">
 							<Button
 								size="lg"
-								className="rounded-full gap-2 shadow-soft"
+								className="rounded-full gap-2 shadow-soft cursor-pointer"
 							>
 								<Apple className="w-5 h-5" />
 								App Store
@@ -38,7 +38,7 @@ const CtaSection = () => {
 							<Button
 								size="lg"
 								variant="outline"
-								className="rounded-full gap-2 border-2"
+								className="rounded-full gap-2 border-2 cursor-pointer"
 							>
 								<Smartphone className="w-5 h-5" />
 								Google Play

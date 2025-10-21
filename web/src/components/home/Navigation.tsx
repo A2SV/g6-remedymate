@@ -2,7 +2,6 @@
 import { Activity, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeToggle } from '../ThemeToggle';
 import { Button } from '../ui/button';
 import {
 	Sheet,
@@ -73,7 +72,6 @@ const Navigation = () => {
 						))}
 					</div>
 					<div className="flex items-center gap-4">
-						<ThemeToggle />
 						<Link href={'/login'} className="">
 							<Button className="rounded-full cursor-pointer">
 								Signin

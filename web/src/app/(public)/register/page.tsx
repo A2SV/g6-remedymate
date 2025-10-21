@@ -1,12 +1,11 @@
-import RegisterForm from '@/components/auth/RegisterForm'
-import React from 'react'
+import RegisterForm from '@/components/auth/RegisterForm';
 
 const page = () => {
-  return (
-    <div>
-        <RegisterForm/>
-    </div>
-  )
-}
+	return (
+		<div className="min-h-screen">
+			<RegisterForm />
+		</div>
+	);
+};
 
-export default page
+export default page;
