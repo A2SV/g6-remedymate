@@ -10,7 +10,7 @@ const Footer = () => {
 					<div>
 						<div className="flex items-center gap-2 mb-4">
 							<Activity className="w-7 h-7 text-primary" />
-							<span className="text-2xl font-bold">Healo</span>
+							<span className="text-2xl font-bold">Wegesha</span>
 						</div>
 						<p className="text-muted-foreground text-sm leading-relaxed mb-4">
 							Making quality healthcare accessible to everyone,
