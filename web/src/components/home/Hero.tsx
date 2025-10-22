@@ -9,7 +9,7 @@ const Hero = () => {
 			className="relative min-h-screen flex items-center pt-20 overflow-hidden"
 		>
 			{/* Gradient Background */}
-			<div className="absolute inset-0 gradient-hero -z-10" />
+			<div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background/0 to-accent/10" />
 
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
 				<div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
@@ -31,7 +31,7 @@ const Hero = () => {
 						<div className="flex flex-col sm:flex-row items-center lg:items-start lg:justify-start justify-center gap-4">
 							<Button
 								size="lg"
-								className="rounded-full w-full sm:w-auto gap-2 shadow-soft"
+								className="rounded-full w-full sm:w-auto gap-2 shadow-soft cursor-pointer"
 							>
 								<Apple className="w-5 h-5" />
 								App Store
@@ -39,7 +39,7 @@ const Hero = () => {
 							<Button
 								size="lg"
 								variant="outline"
-								className="rounded-full w-full sm:w-auto gap-2 border-2"
+								className="rounded-full w-full sm:w-auto gap-2 border-2 cursor-pointer"
 							>
 								<Download className="w-5 h-5" />
 								Download

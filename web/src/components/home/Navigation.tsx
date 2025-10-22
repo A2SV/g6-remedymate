@@ -1,7 +1,8 @@
-import { Button } from '@/components/ui/button';
+'use client';
 import { Activity, Menu } from 'lucide-react';
 import Link from 'next/link';
-import { ThemeToggle } from '../ThemeToggle';
+import { usePathname } from 'next/navigation';
+import { Button } from '../ui/button';
 import {
 	Sheet,
 	SheetContent,
@@ -12,6 +13,15 @@ import {
 } from '../ui/sheet';
 
 const Navigation = () => {
+	const navigations = [
+		{ active: true, href: '/#home', val: 'Home' },
+		{ active: true, href: '/#features', val: 'Features' },
+		{ active: true, href: '/#howitworks', val: 'How it Works' },
+		{ active: true, href: '/#testimonials', val: 'Testimonials' },
+	];
+	const pathname = usePathname();
+	console.log(pathname);
+
 	return (
 		<nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +29,7 @@ const Navigation = () => {
 					<div className="flex items-center gap-2">
 						<div className="md:hidden">
 							<Sheet>
-								<SheetTrigger>
+								<SheetTrigger className="flex flex-col items-center">
 									<Menu />
 								</SheetTrigger>
 								<SheetContent side="left">
@@ -30,30 +40,15 @@ const Navigation = () => {
 										side="left"
 										className="flex flex-col gap-10 pt-10 pl-10"
 									>
-										<Link
-											href="#home"
-											className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-										>
-											Home
-										</Link>
-										<Link
-											href="#features"
-											className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-										>
-											Features
-										</Link>
-										<Link
-											href="#howitworks"
-											className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-										>
-											How it works
-										</Link>
-										<Link
-											href="#testimonials"
-											className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-										>
-											Testimonials
-										</Link>
+										{navigations.map((nav, i) => (
+											<Link
+												key={i}
+												href={nav.href}
+												className="text-sm cursor-pointer font-medium text-foreground hover:text-primary transition-smooth"
+											>
+												{nav.val}
+											</Link>
+										))}
 									</SheetContent>
 									<SheetFooter></SheetFooter>
 								</SheetContent>
@@ -66,36 +61,22 @@ const Navigation = () => {
 					</div>
 
 					<div className="hidden md:flex items-center gap-8">
-						<a
-							href="#home"
-							className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-						>
-							Home
-						</a>
-						<a
-							href="#features"
-							className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-						>
-							Features
-						</a>
-						<a
-							href="#howitworks"
-							className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-						>
-							How it works
-						</a>
-						<a
-							href="#testimonials"
-							className="text-sm font-medium text-foreground hover:text-primary transition-smooth"
-						>
-							Testimonials
-						</a>
+						{navigations.map((nav, i) => (
+							<Link
+								key={i}
+								href={nav.href}
+								className="text-sm cursor-pointer font-medium text-foreground hover:text-primary transition-smooth"
+							>
+								{nav.val}
+							</Link>
+						))}
 					</div>
 					<div className="flex items-center gap-4">
-						<ThemeToggle />
-						<Button size="default" className="rounded-full">
-							Signin
-						</Button>
+						<Link href={'/login'} className="">
+							<Button className="rounded-full cursor-pointer">
+								Signin
+							</Button>
+						</Link>
 					</div>
 				</div>
 			</div>
